@@ -8,7 +8,7 @@ def run(cmd):
 def main():
 
     if len(sys.argv) > 2:
-        print("Usage: git gamblec-commit \"message\"")
+        print("Usage: git gblc-commit \"message\"")
         sys.exit(1)
 
     staged_files = run(["git", "diff", "--cached", "--name-only"]).splitlines()

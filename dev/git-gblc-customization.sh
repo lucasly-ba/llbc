@@ -1,6 +1,6 @@
 #!/bin/sh
 
-git config alias.gamble-commit '!f() { "`git rev-parse --show-toplevel`/dev/git-gamblec-commit.py" "$@"; }; f'
+git config alias.gblc-commit '!f() { "`git rev-parse --show-toplevel`/dev/git-gblc-commit.py" "$@"; }; f'
 
 read -p "Name? " NAME
 read -p "Mail? " EMAIL
