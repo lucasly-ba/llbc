@@ -22,7 +22,9 @@
             ninja
             pkg-config
             llvm_18
+            cli11
             valgrind
+            gdb
             lldb
             bear
             ccache
