@@ -10,7 +10,6 @@ enum class TokenKind
     Function,
     Requires,
     Scene,
-    Entry,
     If,
     Else,
     Loop,
@@ -18,6 +17,8 @@ enum class TokenKind
     Return,
     Match,
     Player,
+    Max,
+    Start,
 
     // Types
     Int,
@@ -116,7 +117,9 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "draw", TokenKind::Draw },
     { "gain", TokenKind::Gain },
     { "lose", TokenKind::Lose },
-    { "enter", TokenKind::Enter },
+    { "enters", TokenKind::Enter },
+    { "start", TokenKind::Start },
+    { "max", TokenKind::Max },
 };
 
 inline TokenKind player_info_kind(char c)
@@ -244,6 +247,10 @@ inline std::string to_string(TokenKind kind)
         return "Comment";
     case TokenKind::Error:
         return "Error";
+    case TokenKind::Start:
+        return "Start";
+    case TokenKind::Max:
+        return "Max";
     default:
         return "Unknown";
     }
