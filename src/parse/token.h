@@ -56,6 +56,8 @@ enum class TokenKind
     // Symbols
     LPar,
     RPar,
+    LBrack,
+    RBrack,
     Colon,
     Arrow,
     Comma,

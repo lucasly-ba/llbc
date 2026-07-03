@@ -58,6 +58,10 @@ namespace lexer
             return make_symbol_token(TokenKind::LPar);
         case ')':
             return make_symbol_token(TokenKind::RPar);
+        case '{':
+            return make_symbol_token(TokenKind::LBrack);
+        case '}':
+            return make_symbol_token(TokenKind::RBrack);
         case ':':
             return make_symbol_token(TokenKind::Colon);
         case ',':
@@ -92,7 +96,7 @@ namespace lexer
             return make_symbol_token(TokenKind::Div);
         case '-':
             if (!is_peek_eof() && peek() == '>')
-                return make_symbol_token(TokenKind::Arrow);
+                return make_double_symbol_token(TokenKind::Arrow);
             return make_symbol_token(TokenKind::Minus);
         default:
             if (std::isdigit(cur()))
@@ -143,14 +147,35 @@ namespace lexer
     {
         std::string val = "";
         walk();
+
         while (!is_eof() && cur() != '"')
         {
-            val += cur();
-            if (cur() == '\\' && !is_peek_eof() && peek() == '"')
+            if (cur() == '\\' && !is_peek_eof())
             {
                 walk();
-                val += cur();
+                switch (cur())
+                {
+                case '"':
+                    val += '"';
+                    break;
+                case 'n':
+                    val += '\n';
+                    break;
+                case 't':
+                    val += '\t';
+                    break;
+                case '\\':
+                    val += '\\';
+                    break;
+                default:
+                    emit_error(
+                        std::format("Unknown escape sequence: \\{}", cur()));
+                    val += cur();
+                    break;
+                }
             }
+            else
+                val += cur();
             walk();
         }
         if (is_eof())
@@ -159,7 +184,6 @@ namespace lexer
             return make_eof_token();
         }
         walk();
-
         return create_token(TokenKind::StringLit, val);
     }
 
