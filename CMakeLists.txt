@@ -24,13 +24,19 @@ llvm_map_components_to_libnames(LLVM_LIBS
 )
 
 set(SOURCES
-    src/ast.cpp
     src/main.cpp
-    src/lexer.cpp
-    src/parser.cpp
-    src/binder.cpp
-    src/type_checker.cpp
-    src/codegen.cpp
+    src/ast/ast.cpp
+    src/ast/dec.cpp
+    src/ast/exp.cpp
+    src/ast/stmt.cpp
+    src/ast/type.cpp
+    src/ast/pattern.cpp
+    src/ast/default-visitor.cpp
+    src/parse/lexer.cpp
+    src/parse/parser.cpp
+    src/bind/binder.cpp
+    src/type/type_checker.cpp
+    src/llvm/codegen.cpp
 )
 
 add_library(runtime STATIC
@@ -45,6 +51,11 @@ set_target_properties(gblc PROPERTIES
 
 target_include_directories(gblc PRIVATE
     src/
+    src/ast/
+    src/parse/
+    src/bind/
+    src/type/
+    src/llvm/
     ${LLVM_INCLUDE_DIRS}
 )
 

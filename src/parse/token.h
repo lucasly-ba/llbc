@@ -21,6 +21,8 @@ enum class TokenKind
     Coin,
     Chance,
     Reputation,
+    Int,
+    String,
 
     // Builtins
     Say,
@@ -89,6 +91,8 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "coin", TokenKind::Coin },
     { "chance", TokenKind::Chance },
     { "reputation", TokenKind::Reputation },
+    { "int", TokenKind::Int },
+    { "string", TokenKind::String },
     { "say", TokenKind::Say },
     { "ask", TokenKind::Ask },
     { "roll", TokenKind::Roll },
@@ -129,6 +133,10 @@ inline std::string to_string(TokenKind kind)
         return "Chance";
     case TokenKind::Reputation:
         return "Reputation";
+    case TokenKind::Int:
+        return "Int";
+    case TokenKind::String:
+        return "String";
     case TokenKind::Say:
         return "Say";
     case TokenKind::Ask:
