@@ -10,19 +10,23 @@ enum class TokenKind
     Function,
     Requires,
     Scene,
+    Entry,
     If,
     Else,
     Loop,
     Break,
     Return,
     Match,
+    Player,
 
     // Types
-    Coin,
+    Int,
+    Float,
+    String,
+    Bool,
+    Dollar,
     Chance,
     Reputation,
-    Int,
-    String,
 
     // Builtins
     Say,
@@ -58,9 +62,13 @@ enum class TokenKind
     Newline,
 
     // Lits
-    DollarsLit,
     IntLit,
+    FloatLit,
     StringLit,
+    BoolLit,
+    DollarsLit,
+    ChanceLit,
+    ReputationLit,
 
     // Others
     ID,
@@ -88,11 +96,17 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "break", TokenKind::Break },
     { "return", TokenKind::Return },
     { "match", TokenKind::Match },
-    { "coin", TokenKind::Coin },
+    { "int", TokenKind::Int },
+    { "float", TokenKind::Float },
+    { "string", TokenKind::String },
+    { "bool", TokenKind::Bool },
+    { "dollar", TokenKind::Dollar },
     { "chance", TokenKind::Chance },
     { "reputation", TokenKind::Reputation },
-    { "int", TokenKind::Int },
-    { "string", TokenKind::String },
+    { "true", TokenKind::BoolLit },
+    { "false", TokenKind::BoolLit },
+    { "dollar", TokenKind::Dollar },
+    { "chance", TokenKind::Chance },
     { "say", TokenKind::Say },
     { "ask", TokenKind::Ask },
     { "roll", TokenKind::Roll },
@@ -102,6 +116,21 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "lose", TokenKind::Lose },
     { "enter", TokenKind::Enter },
 };
+
+inline TokenKind player_info_kind(char c)
+{
+    switch (c)
+    {
+    case '$':
+        return TokenKind::DollarsLit;
+    case '%':
+        return TokenKind::ChanceLit;
+    case '*':
+        return TokenKind::ReputationLit;
+    default:
+        return TokenKind::Error;
+    }
+}
 
 inline std::string to_string(TokenKind kind)
 {
@@ -127,16 +156,20 @@ inline std::string to_string(TokenKind kind)
         return "Return";
     case TokenKind::Match:
         return "Match";
-    case TokenKind::Coin:
-        return "Coin";
+    case TokenKind::Int:
+        return "Int";
+    case TokenKind::Float:
+        return "Float";
+    case TokenKind::String:
+        return "String";
+    case TokenKind::Bool:
+        return "Bool";
+    case TokenKind::Dollar:
+        return "Dollar";
     case TokenKind::Chance:
         return "Chance";
     case TokenKind::Reputation:
         return "Reputation";
-    case TokenKind::Int:
-        return "Int";
-    case TokenKind::String:
-        return "String";
     case TokenKind::Say:
         return "Say";
     case TokenKind::Ask:
@@ -187,12 +220,20 @@ inline std::string to_string(TokenKind kind)
         return "Comma";
     case TokenKind::Newline:
         return "Newline";
-    case TokenKind::DollarsLit:
-        return "DollarsLit";
     case TokenKind::IntLit:
         return "IntLit";
     case TokenKind::StringLit:
         return "StringLit";
+    case TokenKind::FloatLit:
+        return "FloatLit";
+    case TokenKind::BoolLit:
+        return "BoolLit";
+    case TokenKind::DollarsLit:
+        return "DollarsLit";
+    case TokenKind::ChanceLit:
+        return "ChanceLit";
+    case TokenKind::ReputationLit:
+        return "ReputationLit";
     case TokenKind::ID:
         return "ID";
     case TokenKind::Eof:

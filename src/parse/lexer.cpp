@@ -62,7 +62,6 @@ namespace lexer
             return make_symbol_token(TokenKind::Colon);
         case ',':
             return make_symbol_token(TokenKind::Comma);
-
         case '=':
             if (!is_peek_eof() && peek() == '=')
                 return make_double_symbol_token(TokenKind::EqEq);
@@ -114,11 +113,12 @@ namespace lexer
             val += cur();
             walk();
         }
-        if (cur() == '$')
+        if (cur() == '$' || cur() == '%' || cur() == '*')
         {
-            val += cur();
+            auto c = cur();
+            val += c;
             walk();
-            return create_token(TokenKind::DollarsLit, val);
+            return create_token(player_info_kind(c), val);
         }
         return create_token(TokenKind::IntLit, val);
     }
