@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <lexer.h>
+#include <parser.h>
 #include <sstream>
 
 int main(int argc, char* argv[])
@@ -33,4 +34,7 @@ int main(int argc, char* argv[])
                       << err.col << "\n";
         return 1;
     }
+
+    parser::Parser(parse_trace, tokens);
+    auto program = parse_program();
 }
