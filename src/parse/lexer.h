@@ -3,7 +3,7 @@
 #include <token.h>
 #include <vector>
 
-namespace lexer
+namespace parser
 {
     struct LexError
     {
@@ -54,4 +54,4 @@ namespace lexer
         std::vector<LexError> errors_;
     };
 
-} // namespace lexer
+} // namespace parser

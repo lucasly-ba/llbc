@@ -2,222 +2,224 @@
 #include <string>
 #include <unordered_map>
 
-enum class TokenKind
+namespace parser
 {
-
-    // Key words
-    Let,
-    Function,
-    Requires,
-    Scene,
-    If,
-    Else,
-    Loop,
-    Break,
-    Return,
-    Player,
-    Max,
-    Start,
-    Reputation,
-
-    // Types
-    Int,
-    Float,
-    String,
-    Bool,
-    Dollar,
-    Chance,
-    Enter,
-
-    // Arithmetic ops
-    Plus,
-    Minus,
-    Mul,
-    Div,
-
-    // Compare ops
-    Eq,
-    EqEq,
-    Neq,
-    Lt,
-    Gt,
-    Leq,
-    Geq,
-
-    // Symbols
-    LPar,
-    RPar,
-    LBrack,
-    RBrack,
-    Colon,
-    Arrow,
-    Comma,
-    Newline,
-
-    // Lits
-    IntLit,
-    FloatLit,
-    StringLit,
-    BoolLit,
-    DollarsLit,
-    ChanceLit,
-    ReputationLit,
-
-    // Others
-    ID,
-    Eof,
-    Comment,
-    Error,
-};
-
-struct Token
-{
-    TokenKind kind;
-    std::string value;
-    size_t line;
-    size_t col;
-};
-
-inline const std::unordered_map<std::string, TokenKind> keywords = {
-    { "let", TokenKind::Let },
-    { "fn", TokenKind::Function },
-    { "requires", TokenKind::Requires },
-    { "scene", TokenKind::Scene },
-    { "if", TokenKind::If },
-    { "else", TokenKind::Else },
-    { "loop", TokenKind::Loop },
-    { "break", TokenKind::Break },
-    { "return", TokenKind::Return },
-    { "int", TokenKind::Int },
-    { "float", TokenKind::Float },
-    { "string", TokenKind::String },
-    { "bool", TokenKind::Bool },
-    { "dollar", TokenKind::Dollar },
-    { "chance", TokenKind::Chance },
-    { "reputation", TokenKind::Reputation },
-    { "true", TokenKind::BoolLit },
-    { "false", TokenKind::BoolLit },
-    { "dollar", TokenKind::Dollar },
-    { "chance", TokenKind::Chance },
-    { "enters", TokenKind::Enter },
-    { "start", TokenKind::Start },
-    { "max", TokenKind::Max },
-};
-
-inline TokenKind player_info_kind(char c)
-{
-    switch (c)
+    enum class TokenKind
     {
-    case '$':
-        return TokenKind::DollarsLit;
-    case '%':
-        return TokenKind::ChanceLit;
-    case '*':
-        return TokenKind::ReputationLit;
-    default:
-        return TokenKind::Error;
-    }
-}
+        // Key words
+        Let,
+        Function,
+        Requires,
+        Scene,
+        If,
+        Else,
+        Loop,
+        Break,
+        Return,
+        Player,
+        Max,
+        Start,
+        Reputation,
 
-inline std::string to_string(TokenKind kind)
-{
-    switch (kind)
+        // Types
+        Int,
+        Float,
+        String,
+        Bool,
+        Dollar,
+        Chance,
+        Enter,
+
+        // Arithmetic ops
+        Plus,
+        Minus,
+        Mul,
+        Div,
+
+        // Compare ops
+        Eq,
+        EqEq,
+        Neq,
+        Lt,
+        Gt,
+        Leq,
+        Geq,
+
+        // Symbols
+        LPar,
+        RPar,
+        LBrack,
+        RBrack,
+        Colon,
+        Arrow,
+        Comma,
+        Newline,
+
+        // Lits
+        IntLit,
+        FloatLit,
+        StringLit,
+        BoolLit,
+        DollarsLit,
+        ChanceLit,
+        ReputationLit,
+
+        // Others
+        ID,
+        Eof,
+        Comment,
+        Error,
+    };
+
+    struct Token
     {
-    case TokenKind::Let:
-        return "Let";
-    case TokenKind::Function:
-        return "Function";
-    case TokenKind::Requires:
-        return "Requires";
-    case TokenKind::Scene:
-        return "Scene";
-    case TokenKind::If:
-        return "If";
-    case TokenKind::Else:
-        return "Else";
-    case TokenKind::Loop:
-        return "Loop";
-    case TokenKind::Break:
-        return "Break";
-    case TokenKind::Return:
-        return "Return";
-    case TokenKind::Int:
-        return "Int";
-    case TokenKind::Float:
-        return "Float";
-    case TokenKind::String:
-        return "String";
-    case TokenKind::Bool:
-        return "Bool";
-    case TokenKind::Dollar:
-        return "Dollar";
-    case TokenKind::Chance:
-        return "Chance";
-    case TokenKind::Reputation:
-        return "Reputation";
-    case TokenKind::Enter:
-        return "Enter";
-    case TokenKind::Plus:
-        return "Plus";
-    case TokenKind::Minus:
-        return "Minus";
-    case TokenKind::Mul:
-        return "Mul";
-    case TokenKind::Div:
-        return "Div";
-    case TokenKind::Eq:
-        return "Eq";
-    case TokenKind::EqEq:
-        return "EqEq";
-    case TokenKind::Neq:
-        return "Neq";
-    case TokenKind::Lt:
-        return "Lt";
-    case TokenKind::Gt:
-        return "Gt";
-    case TokenKind::Leq:
-        return "Leq";
-    case TokenKind::Geq:
-        return "Geq";
-    case TokenKind::LPar:
-        return "LPar";
-    case TokenKind::RPar:
-        return "RPar";
-    case TokenKind::Colon:
-        return "Colon";
-    case TokenKind::Arrow:
-        return "Arrow";
-    case TokenKind::Comma:
-        return "Comma";
-    case TokenKind::Newline:
-        return "Newline";
-    case TokenKind::IntLit:
-        return "IntLit";
-    case TokenKind::StringLit:
-        return "StringLit";
-    case TokenKind::FloatLit:
-        return "FloatLit";
-    case TokenKind::BoolLit:
-        return "BoolLit";
-    case TokenKind::DollarsLit:
-        return "DollarsLit";
-    case TokenKind::ChanceLit:
-        return "ChanceLit";
-    case TokenKind::ReputationLit:
-        return "ReputationLit";
-    case TokenKind::ID:
-        return "ID";
-    case TokenKind::Eof:
-        return "Eof";
-    case TokenKind::Comment:
-        return "Comment";
-    case TokenKind::Error:
-        return "Error";
-    case TokenKind::Start:
-        return "Start";
-    case TokenKind::Max:
-        return "Max";
-    default:
-        return "Unknown";
+        TokenKind kind;
+        std::string value;
+        size_t line;
+        size_t col;
+    };
+
+    inline const std::unordered_map<std::string, TokenKind> keywords = {
+        { "let", TokenKind::Let },
+        { "fn", TokenKind::Function },
+        { "requires", TokenKind::Requires },
+        { "scene", TokenKind::Scene },
+        { "if", TokenKind::If },
+        { "else", TokenKind::Else },
+        { "loop", TokenKind::Loop },
+        { "break", TokenKind::Break },
+        { "return", TokenKind::Return },
+        { "int", TokenKind::Int },
+        { "float", TokenKind::Float },
+        { "string", TokenKind::String },
+        { "bool", TokenKind::Bool },
+        { "dollar", TokenKind::Dollar },
+        { "chance", TokenKind::Chance },
+        { "reputation", TokenKind::Reputation },
+        { "true", TokenKind::BoolLit },
+        { "false", TokenKind::BoolLit },
+        { "dollar", TokenKind::Dollar },
+        { "chance", TokenKind::Chance },
+        { "enters", TokenKind::Enter },
+        { "start", TokenKind::Start },
+        { "max", TokenKind::Max },
+    };
+
+    inline TokenKind player_info_kind(char c)
+    {
+        switch (c)
+        {
+        case '$':
+            return TokenKind::DollarsLit;
+        case '%':
+            return TokenKind::ChanceLit;
+        case '*':
+            return TokenKind::ReputationLit;
+        default:
+            return TokenKind::Error;
+        }
     }
-}
+
+    inline std::string to_string(TokenKind kind)
+    {
+        switch (kind)
+        {
+        case TokenKind::Let:
+            return "Let";
+        case TokenKind::Function:
+            return "Function";
+        case TokenKind::Requires:
+            return "Requires";
+        case TokenKind::Scene:
+            return "Scene";
+        case TokenKind::If:
+            return "If";
+        case TokenKind::Else:
+            return "Else";
+        case TokenKind::Loop:
+            return "Loop";
+        case TokenKind::Break:
+            return "Break";
+        case TokenKind::Return:
+            return "Return";
+        case TokenKind::Int:
+            return "Int";
+        case TokenKind::Float:
+            return "Float";
+        case TokenKind::String:
+            return "String";
+        case TokenKind::Bool:
+            return "Bool";
+        case TokenKind::Dollar:
+            return "Dollar";
+        case TokenKind::Chance:
+            return "Chance";
+        case TokenKind::Reputation:
+            return "Reputation";
+        case TokenKind::Enter:
+            return "Enter";
+        case TokenKind::Plus:
+            return "Plus";
+        case TokenKind::Minus:
+            return "Minus";
+        case TokenKind::Mul:
+            return "Mul";
+        case TokenKind::Div:
+            return "Div";
+        case TokenKind::Eq:
+            return "Eq";
+        case TokenKind::EqEq:
+            return "EqEq";
+        case TokenKind::Neq:
+            return "Neq";
+        case TokenKind::Lt:
+            return "Lt";
+        case TokenKind::Gt:
+            return "Gt";
+        case TokenKind::Leq:
+            return "Leq";
+        case TokenKind::Geq:
+            return "Geq";
+        case TokenKind::LPar:
+            return "LPar";
+        case TokenKind::RPar:
+            return "RPar";
+        case TokenKind::Colon:
+            return "Colon";
+        case TokenKind::Arrow:
+            return "Arrow";
+        case TokenKind::Comma:
+            return "Comma";
+        case TokenKind::Newline:
+            return "Newline";
+        case TokenKind::IntLit:
+            return "IntLit";
+        case TokenKind::StringLit:
+            return "StringLit";
+        case TokenKind::FloatLit:
+            return "FloatLit";
+        case TokenKind::BoolLit:
+            return "BoolLit";
+        case TokenKind::DollarsLit:
+            return "DollarsLit";
+        case TokenKind::ChanceLit:
+            return "ChanceLit";
+        case TokenKind::ReputationLit:
+            return "ReputationLit";
+        case TokenKind::ID:
+            return "ID";
+        case TokenKind::Eof:
+            return "Eof";
+        case TokenKind::Comment:
+            return "Comment";
+        case TokenKind::Error:
+            return "Error";
+        case TokenKind::Start:
+            return "Start";
+        case TokenKind::Max:
+            return "Max";
+        default:
+            return "Unknown";
+        }
+    }
+} // namespace parser

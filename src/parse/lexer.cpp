@@ -5,7 +5,7 @@
 
 #include "token.h"
 
-namespace lexer
+namespace parser
 {
     Lexer::Lexer(bool trace, std::string content)
         : content_(content)
@@ -121,6 +121,10 @@ namespace lexer
         {
             auto c = cur();
             val += c;
+            if (c == '%' && std::atoi(val.c_str()) > 100)
+                return make_error_token(
+                    "Chance value should be between 0 and 100, actual value: "
+                    + val);
             walk();
             return create_token(player_info_kind(c), val);
         }
@@ -316,4 +320,4 @@ namespace lexer
         }
     }
 
-} // namespace lexer
+} // namespace parser
