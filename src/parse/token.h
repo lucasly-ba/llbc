@@ -7,7 +7,7 @@ namespace parser
     enum class TokenKind
     {
         // Key words
-        Let,
+        Var,
         Function,
         Requires,
         Scene,
@@ -80,7 +80,7 @@ namespace parser
     };
 
     inline const std::unordered_map<std::string, TokenKind> keywords = {
-        { "let", TokenKind::Let },
+        { "var", TokenKind::Var },
         { "fn", TokenKind::Function },
         { "requires", TokenKind::Requires },
         { "scene", TokenKind::Scene },
@@ -124,8 +124,8 @@ namespace parser
     {
         switch (kind)
         {
-        case TokenKind::Let:
-            return "Let";
+        case TokenKind::Var:
+            return "Var";
         case TokenKind::Function:
             return "Function";
         case TokenKind::Requires:

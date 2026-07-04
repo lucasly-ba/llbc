@@ -10,22 +10,22 @@ namespace ast
         : Ast(location)
     {}
 
-    LetStmt::LetStmt(const Location& location, std::unique_ptr<VarDec> vardec)
+    VarStmt::VarStmt(const Location& location, std::unique_ptr<VarDec> vardec)
         : Stmt(location)
         , vardec_(std::move(vardec))
     {}
 
-    void LetStmt::accept(Visitor& v)
+    void VarStmt::accept(Visitor& v)
     {
         v.visit(*this);
     }
 
-    VarDec& LetStmt::vardec_get() const
+    VarDec& VarStmt::vardec_get() const
     {
         return *vardec_;
     }
 
-    void LetStmt::vardec_set(std::unique_ptr<VarDec> vardec)
+    void VarStmt::vardec_set(std::unique_ptr<VarDec> vardec)
     {
         vardec_ = std::move(vardec);
     }

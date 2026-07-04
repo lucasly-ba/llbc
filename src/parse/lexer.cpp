@@ -33,6 +33,7 @@ namespace parser
                 skip_newline = false;
             }
         }
+        tokens.push_back(tok);
         if (trace_)
             debug_lexer(tokens);
 
@@ -225,11 +226,6 @@ namespace parser
         return create_token(TokenKind::Error);
     }
 
-    void Lexer::emit_error(const std::string& message)
-    {
-        errors_.push_back({ message, line_, col_ });
-    }
-
     Token Lexer::lex_eof_token()
     {
         return create_token(TokenKind::Eof);
@@ -249,61 +245,6 @@ namespace parser
         if (!is_eof())
             reset();
         return create_token(TokenKind::Comment);
-    }
-
-    void Lexer::skip_white_space()
-    {
-        while (!is_eof() && (cur() == ' ' || cur() == '\t'))
-            walk();
-    }
-
-    void Lexer::walk()
-    {
-        pos_++;
-        col_++;
-    }
-
-    // at eof
-    void Lexer::reset()
-    {
-        line_++;
-        pos_++;
-        col_ = 0;
-    }
-
-    char Lexer::cur() const
-    {
-        return content_[pos_];
-    }
-
-    char Lexer::peek() const
-    {
-        return content_[pos_ + 1];
-    }
-
-    Token Lexer::create_token(TokenKind kind, const std::string& value)
-    {
-        return Token{ kind, value, line_, col_ };
-    }
-
-    const std::vector<LexError>& Lexer::get_errors() const
-    {
-        return errors_;
-    }
-
-    bool Lexer::has_error() const
-    {
-        return !errors_.empty();
-    }
-
-    bool Lexer::is_eof() const
-    {
-        return pos_ >= content_.size();
-    }
-
-    bool Lexer::is_peek_eof() const
-    {
-        return pos_ + 1 >= content_.size();
     }
 
     void Lexer::debug_lexer(const std::vector<Token>& tokens) const

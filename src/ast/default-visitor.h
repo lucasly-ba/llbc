@@ -22,7 +22,7 @@ namespace ast
         void visit(CallExp& node) override;
         void visit(IdentExp& node) override;
 
-        void visit(LetStmt& node) override;
+        void visit(VarStmt& node) override;
         void visit(IfStmt& node) override;
         void visit(LoopStmt& node) override;
         void visit(BreakStmt& node) override;

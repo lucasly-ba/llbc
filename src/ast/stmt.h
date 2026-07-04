@@ -11,10 +11,10 @@ namespace ast
         explicit Stmt(const Location& location);
     };
 
-    class LetStmt : public Stmt
+    class VarStmt : public Stmt
     {
     public:
-        LetStmt(const Location& location, std::unique_ptr<VarDec> vardec);
+        VarStmt(const Location& location, std::unique_ptr<VarDec> vardec);
 
         void accept(Visitor& v) override;
 

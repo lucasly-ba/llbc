@@ -24,7 +24,7 @@ namespace ast
     class IdentExp;
 
     class Stmt;
-    class LetStmt;
+    class VarStmt;
     class IfStmt;
     class LoopStmt;
     class BreakStmt;

@@ -111,10 +111,10 @@ namespace parser
         return std::make_unique<ast::IdentExp>(location, std::move(name));
     }
 
-    ast::stmt_ptr make_LetStmt(const ast::Location& location,
+    ast::stmt_ptr make_VarStmt(const ast::Location& location,
                                std::unique_ptr<ast::VarDec> vardec)
     {
-        return std::make_unique<ast::LetStmt>(location, std::move(vardec));
+        return std::make_unique<ast::VarStmt>(location, std::move(vardec));
     }
 
     ast::stmt_ptr make_IfStmt(const ast::Location& location,
