@@ -124,6 +124,20 @@ namespace lexer
             walk();
             return create_token(player_info_kind(c), val);
         }
+        if (cur() == '.')
+        {
+            val += cur();
+            walk();
+            if (is_eof() || !std::isdigit(cur()))
+                return make_error_token("Unterminated float number: " + val);
+            while (!is_eof() && std::isdigit(cur()))
+            {
+                val += cur();
+                walk();
+            }
+            return create_token(TokenKind::FloatLit, val);
+        }
+
         return create_token(TokenKind::IntLit, val);
     }
 
