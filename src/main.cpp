@@ -6,13 +6,13 @@
 
 int main(int argc, char* argv[])
 {
-    CLI::App app{ "llb compiler" };
+    CLI::App app{ "gblc compiler" };
 
     std::string input_file;
     bool lex_trace = false;
     bool parse_trace = false;
 
-    app.add_option("file", input_file, "Input .llb file")->required();
+    app.add_option("file", input_file, "Input .gblc file")->required();
     app.add_flag("--lex-trace", lex_trace, "Trace the lexer");
     app.add_flag("--parse-trace", parse_trace, "Trace the parser");
 
@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
     ss << f.rdbuf();
     std::string content = ss.str();
 
-    lexer::Lexer lex(lex_trace, content);
-    auto tokens = lex.make_tokens();
+    parser::Lexer lex(lex_trace, content);
+    auto tokens = lex.lex_tokens();
 
     if (lex.has_error())
     {

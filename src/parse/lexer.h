@@ -16,21 +16,21 @@ namespace parser
     {
     public:
         Lexer(bool trace, std::string content);
-        std::vector<Token> make_tokens();
+        std::vector<Token> lex_tokens();
         const std::vector<LexError>& get_errors() const;
         bool has_error() const;
 
     private:
-        Token make_token();
-        Token make_keyword_token();
-        Token make_number_token();
-        Token make_newline_token();
-        Token make_stringlit_token();
-        Token make_symbol_token(TokenKind kind);
-        Token make_double_symbol_token(TokenKind kind);
-        Token make_token_comment();
-        Token make_eof_token();
-        Token make_error_token(const std::string& message);
+        Token lex_token();
+        Token lex_keyword_token();
+        Token lex_number_token();
+        Token lex_newline_token();
+        Token lex_stringlit_token();
+        Token lex_symbol_token(TokenKind kind);
+        Token lex_double_symbol_token(TokenKind kind);
+        Token lex_token_comment();
+        Token lex_eof_token();
+        Token lex_error_token(const std::string& message);
 
         Token create_token(TokenKind kind, const std::string& value = "");
 

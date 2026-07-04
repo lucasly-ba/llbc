@@ -13,10 +13,10 @@ namespace parser
     {}
 
     // Entry function
-    std::vector<Token> Lexer::make_tokens()
+    std::vector<Token> Lexer::lex_tokens()
     {
         std::vector<Token> tokens{};
-        Token tok = make_token();
+        Token tok = lex_token();
         bool skip_newline = false;
         while (tok.kind != TokenKind::Eof)
         {
@@ -24,12 +24,12 @@ namespace parser
                 skip_newline = true;
             if (tok.kind != TokenKind::Comment && tok.kind != TokenKind::Error)
                 tokens.push_back(tok);
-            tok = make_token();
+            tok = lex_token();
             // Avoid having multiple newlines in a row
             if (skip_newline)
             {
                 while (tok.kind == TokenKind::Newline)
-                    tok = make_token();
+                    tok = lex_token();
                 skip_newline = false;
             }
         }
@@ -39,76 +39,76 @@ namespace parser
         return tokens;
     }
 
-    Token Lexer::make_token()
+    Token Lexer::lex_token()
     {
         skip_white_space();
 
         if (is_eof())
-            return make_eof_token();
+            return lex_eof_token();
 
         switch (cur())
         {
         case '\n':
-            return make_newline_token();
+            return lex_newline_token();
         case '#':
-            return make_token_comment();
+            return lex_token_comment();
         case '"':
-            return make_stringlit_token();
+            return lex_stringlit_token();
         case '(':
-            return make_symbol_token(TokenKind::LPar);
+            return lex_symbol_token(TokenKind::LPar);
         case ')':
-            return make_symbol_token(TokenKind::RPar);
+            return lex_symbol_token(TokenKind::RPar);
         case '{':
-            return make_symbol_token(TokenKind::LBrack);
+            return lex_symbol_token(TokenKind::LBrack);
         case '}':
-            return make_symbol_token(TokenKind::RBrack);
+            return lex_symbol_token(TokenKind::RBrack);
         case ':':
-            return make_symbol_token(TokenKind::Colon);
+            return lex_symbol_token(TokenKind::Colon);
         case ',':
-            return make_symbol_token(TokenKind::Comma);
+            return lex_symbol_token(TokenKind::Comma);
         case '=':
             if (!is_peek_eof() && peek() == '=')
-                return make_double_symbol_token(TokenKind::EqEq);
-            return make_symbol_token(TokenKind::Eq);
+                return lex_double_symbol_token(TokenKind::EqEq);
+            return lex_symbol_token(TokenKind::Eq);
         case '!':
             if (!is_peek_eof() && peek() == '=')
-                return make_double_symbol_token(TokenKind::Neq);
+                return lex_double_symbol_token(TokenKind::Neq);
             if (is_peek_eof())
             {
                 emit_error("Unexpected end of file");
-                return make_eof_token();
+                return lex_eof_token();
             }
-            return make_error_token(
+            return lex_error_token(
                 std::format("Unexpected character: {}", cur()));
         case '<':
             if (!is_peek_eof() && peek() == '=')
-                return make_double_symbol_token(TokenKind::Leq);
-            return make_symbol_token(TokenKind::Lt);
+                return lex_double_symbol_token(TokenKind::Leq);
+            return lex_symbol_token(TokenKind::Lt);
         case '>':
             if (!is_peek_eof() && peek() == '=')
-                return make_double_symbol_token(TokenKind::Geq);
-            return make_symbol_token(TokenKind::Gt);
+                return lex_double_symbol_token(TokenKind::Geq);
+            return lex_symbol_token(TokenKind::Gt);
         case '+':
-            return make_symbol_token(TokenKind::Plus);
+            return lex_symbol_token(TokenKind::Plus);
         case '*':
-            return make_symbol_token(TokenKind::Mul);
+            return lex_symbol_token(TokenKind::Mul);
         case '/':
-            return make_symbol_token(TokenKind::Div);
+            return lex_symbol_token(TokenKind::Div);
         case '-':
             if (!is_peek_eof() && peek() == '>')
-                return make_double_symbol_token(TokenKind::Arrow);
-            return make_symbol_token(TokenKind::Minus);
+                return lex_double_symbol_token(TokenKind::Arrow);
+            return lex_symbol_token(TokenKind::Minus);
         default:
             if (std::isdigit(cur()))
-                return make_number_token();
+                return lex_number_token();
             if (std::isalpha(cur()) || cur() == '_')
-                return make_keyword_token();
-            return make_error_token(
+                return lex_keyword_token();
+            return lex_error_token(
                 std::format("Unrecognized character: {}", cur()));
         }
     }
 
-    Token Lexer::make_number_token()
+    Token Lexer::lex_number_token()
     {
         std::string val = std::string(1, cur());
         walk();
@@ -122,7 +122,7 @@ namespace parser
             auto c = cur();
             val += c;
             if (c == '%' && std::atoi(val.c_str()) > 100)
-                return make_error_token(
+                return lex_error_token(
                     "Chance value should be between 0 and 100, actual value: "
                     + val);
             walk();
@@ -133,7 +133,7 @@ namespace parser
             val += cur();
             walk();
             if (is_eof() || !std::isdigit(cur()))
-                return make_error_token("Unterminated float number: " + val);
+                return lex_error_token("Unterminated float number: " + val);
             while (!is_eof() && std::isdigit(cur()))
             {
                 val += cur();
@@ -145,7 +145,7 @@ namespace parser
         return create_token(TokenKind::IntLit, val);
     }
 
-    Token Lexer::make_keyword_token()
+    Token Lexer::lex_keyword_token()
     {
         std::string val = std::string(1, cur());
         walk();
@@ -161,7 +161,7 @@ namespace parser
         return create_token(TokenKind::ID, val);
     }
 
-    Token Lexer::make_stringlit_token()
+    Token Lexer::lex_stringlit_token()
     {
         std::string val = "";
         walk();
@@ -199,26 +199,26 @@ namespace parser
         if (is_eof())
         {
             emit_error("Unexpected end of file");
-            return make_eof_token();
+            return lex_eof_token();
         }
         walk();
         return create_token(TokenKind::StringLit, val);
     }
 
-    Token Lexer::make_symbol_token(TokenKind kind)
+    Token Lexer::lex_symbol_token(TokenKind kind)
     {
         walk();
         return create_token(kind);
     }
 
-    Token Lexer::make_double_symbol_token(TokenKind kind)
+    Token Lexer::lex_double_symbol_token(TokenKind kind)
     {
         walk();
         walk();
         return create_token(kind);
     }
 
-    Token Lexer::make_error_token(const std::string& message)
+    Token Lexer::lex_error_token(const std::string& message)
     {
         walk();
         errors_.push_back({ message, line_, col_ });
@@ -230,18 +230,18 @@ namespace parser
         errors_.push_back({ message, line_, col_ });
     }
 
-    Token Lexer::make_eof_token()
+    Token Lexer::lex_eof_token()
     {
         return create_token(TokenKind::Eof);
     }
 
-    Token Lexer::make_newline_token()
+    Token Lexer::lex_newline_token()
     {
         reset();
         return create_token(TokenKind::Newline);
     }
 
-    Token Lexer::make_token_comment()
+    Token Lexer::lex_token_comment()
 
     {
         while (!is_eof() && cur() != '\n')
