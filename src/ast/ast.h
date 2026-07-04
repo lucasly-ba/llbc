@@ -1,6 +1,7 @@
 #pragma once
 #include <cstddef>
 #include <fwd.h>
+#include <vector>
 
 namespace ast
 {
@@ -27,5 +28,18 @@ namespace ast
 
     protected:
         Location location_;
+    };
+
+    class Program : Ast
+    {
+    public:
+        Program(const Location& location, std::vector<dec_ptr> decs);
+
+        const std::vector<dec_ptr>& decs_get() const;
+        std::vector<dec_ptr>& decs_get();
+        void decs_set(std::vector<dec_ptr> decs);
+
+    private:
+        std::vector<dec_ptr> decs_;
     };
 } // namespace ast
