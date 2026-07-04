@@ -15,7 +15,6 @@ enum class TokenKind
     Loop,
     Break,
     Return,
-    Match,
     Player,
     Max,
     Start,
@@ -98,7 +97,6 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "loop", TokenKind::Loop },
     { "break", TokenKind::Break },
     { "return", TokenKind::Return },
-    { "match", TokenKind::Match },
     { "int", TokenKind::Int },
     { "float", TokenKind::Float },
     { "string", TokenKind::String },
@@ -159,8 +157,6 @@ inline std::string to_string(TokenKind kind)
         return "Break";
     case TokenKind::Return:
         return "Return";
-    case TokenKind::Match:
-        return "Match";
     case TokenKind::Int:
         return "Int";
     case TokenKind::Float:
