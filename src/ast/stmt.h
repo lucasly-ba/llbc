@@ -16,6 +16,8 @@ namespace ast
     public:
         LetStmt(const Location& location, std::unique_ptr<VarDec> vardec);
 
+        void accept(Visitor& v) override;
+
         VarDec& vardec_get() const;
         void vardec_set(std::unique_ptr<VarDec> vardec);
 
@@ -32,6 +34,8 @@ namespace ast
 
         IfStmt(const Location& location, exp_ptr condition,
                std::vector<stmt_ptr> then_branch);
+
+        void accept(Visitor& v) override;
 
         Exp& condition_get() const;
         void condition_set(exp_ptr condition);
@@ -55,6 +59,8 @@ namespace ast
     public:
         LoopStmt(const Location& location, std::vector<stmt_ptr> body);
 
+        void accept(Visitor& v) override;
+
         const std::vector<stmt_ptr>& body_get() const;
         void body_set(std::vector<stmt_ptr> body);
 
@@ -66,6 +72,8 @@ namespace ast
     {
     public:
         explicit BreakStmt(const Location& location);
+
+        void accept(Visitor& v) override;
     };
 
     class ReturnStmt : public Stmt
@@ -73,6 +81,8 @@ namespace ast
     public:
         ReturnStmt(const Location& location, exp_ptr value);
         ReturnStmt(const Location& location);
+
+        void accept(Visitor& v) override;
 
         Exp* value_get() const;
         void value_set(exp_ptr value);
@@ -85,6 +95,8 @@ namespace ast
     {
     public:
         ExpStmt(const Location& location, exp_ptr exp);
+
+        void accept(Visitor& v) override;
 
         Exp& exp_get() const;
         void exp_set(exp_ptr exp);

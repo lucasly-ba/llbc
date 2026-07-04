@@ -2,6 +2,7 @@
 #include <ast/exp.h>
 #include <ast/stmt.h>
 #include <ast/type.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -13,6 +14,11 @@ namespace ast
         : Stmt(location)
         , vardec_(std::move(vardec))
     {}
+
+    void LetStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     VarDec& LetStmt::vardec_get() const
     {
@@ -40,6 +46,11 @@ namespace ast
         , then_branch_(std::move(then_branch))
         , else_branch_()
     {}
+
+    void IfStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     Exp& IfStmt::condition_get() const
     {
@@ -86,6 +97,11 @@ namespace ast
         , body_(std::move(body))
     {}
 
+    void LoopStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     const std::vector<stmt_ptr>& LoopStmt::body_get() const
     {
         return body_;
@@ -100,6 +116,11 @@ namespace ast
         : Stmt(location)
     {}
 
+    void BreakStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     ReturnStmt::ReturnStmt(const Location& location, exp_ptr value)
         : Stmt(location)
         , value_(std::move(value))
@@ -109,6 +130,11 @@ namespace ast
         : Stmt(location)
         , value_(nullptr)
     {}
+
+    void ReturnStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     Exp* ReturnStmt::value_get() const
     {
@@ -124,6 +150,11 @@ namespace ast
         : Stmt(location)
         , exp_(std::move(exp))
     {}
+
+    void ExpStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     Exp& ExpStmt::exp_get() const
     {

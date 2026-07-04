@@ -29,7 +29,7 @@ namespace ast
     class LoopStmt;
     class BreakStmt;
     class ReturnStmt;
-    class ExprStmt;
+    class ExpStmt;
 
     class Visitor;
 

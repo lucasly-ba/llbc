@@ -29,6 +29,8 @@ namespace ast
         };
         OpExp(const Location& location, exp_ptr left, Oper oper, exp_ptr right);
 
+        void accept(Visitor& v) override;
+
         Exp& left_get() const;
         void left_set(exp_ptr left);
 
@@ -49,6 +51,8 @@ namespace ast
     public:
         IntExp(const Location& location, int value);
 
+        void accept(Visitor& v) override;
+
         int value_get() const;
         void value_set(int value);
 
@@ -60,6 +64,8 @@ namespace ast
     {
     public:
         FloatExp(const Location& location, float value);
+
+        void accept(Visitor& v) override;
 
         float value_get() const;
         void value_set(float value);
@@ -73,6 +79,8 @@ namespace ast
     public:
         StringExp(const Location& location, std::string value);
 
+        void accept(Visitor& v) override;
+
         const std::string& value_get() const;
         void value_set(std::string value);
 
@@ -85,6 +93,8 @@ namespace ast
     public:
         BoolExp(const Location& location, bool value);
 
+        void accept(Visitor& v) override;
+
         bool value_get() const;
         void value_set(bool value);
 
@@ -96,18 +106,24 @@ namespace ast
     {
     public:
         DollarExp(const Location& location, int value);
+
+        void accept(Visitor& v) override;
     };
 
     class ChanceExp : public IntExp
     {
     public:
         ChanceExp(const Location& location, int value);
+
+        void accept(Visitor& v) override;
     };
 
     class ReputationExp : public IntExp
     {
     public:
         ReputationExp(const Location& location, int value);
+
+        void accept(Visitor& v) override;
     };
 
     class CallExp : public Exp
@@ -115,6 +131,8 @@ namespace ast
     public:
         CallExp(const Location& location, std::string name,
                 std::vector<exp_ptr> args);
+
+        void accept(Visitor& v) override;
 
         const std::string& name_get() const;
         void name_set(std::string name);
@@ -132,6 +150,8 @@ namespace ast
     {
     public:
         IdentExp(const Location& location, std::string name);
+
+        void accept(Visitor& v) override;
 
         const std::string& name_get() const;
         void name_set(std::string name);

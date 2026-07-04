@@ -2,6 +2,7 @@
 #include <ast/exp.h>
 #include <ast/stmt.h>
 #include <ast/type.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -32,6 +33,11 @@ namespace ast
         , type_(std::nullopt)
         , init_(std::move(init))
     {}
+
+    void VarDec::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     std::optional<Type> VarDec::type_get() const
     {
@@ -70,6 +76,11 @@ namespace ast
         , type_(std::nullopt)
         , body_(std::move(body))
     {}
+
+    void FuncDec::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     const std::vector<std::unique_ptr<VarDec>>& FuncDec::args_get() const
     {
@@ -145,6 +156,11 @@ namespace ast
         , body_(std::move(body))
     {}
 
+    void SceneDec::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     std::optional<int> SceneDec::max_players_get() const
     {
         return max_players_;
@@ -187,6 +203,11 @@ namespace ast
         , chance_(std::move(chance))
         , reputation_(std::move(reputation))
     {}
+
+    void PlayerDec::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     Exp& PlayerDec::dollar_get() const
     {

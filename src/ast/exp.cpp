@@ -1,4 +1,5 @@
 #include <ast/exp.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -13,6 +14,11 @@ namespace ast
         , oper_(oper)
         , right_(std::move(right))
     {}
+
+    void OpExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     Exp& OpExp::left_get() const
     {
@@ -49,6 +55,11 @@ namespace ast
         , value_(value)
     {}
 
+    void IntExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     int IntExp::value_get() const
     {
         return value_;
@@ -63,6 +74,11 @@ namespace ast
         : Exp(location)
         , value_(value)
     {}
+
+    void FloatExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     float FloatExp::value_get() const
     {
@@ -79,6 +95,11 @@ namespace ast
         , value_(std::move(value))
     {}
 
+    void StringExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     const std::string& StringExp::value_get() const
     {
         return value_;
@@ -94,6 +115,11 @@ namespace ast
         , value_(value)
     {}
 
+    void BoolExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     bool BoolExp::value_get() const
     {
         return value_;
@@ -108,13 +134,28 @@ namespace ast
         : IntExp(location, value)
     {}
 
+    void DollarExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     ChanceExp::ChanceExp(const Location& location, int value)
         : IntExp(location, value)
     {}
 
+    void ChanceExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
     ReputationExp::ReputationExp(const Location& location, int value)
         : IntExp(location, value)
     {}
+
+    void ReputationExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     CallExp::CallExp(const Location& location, std::string name,
                      std::vector<exp_ptr> args)
@@ -122,6 +163,11 @@ namespace ast
         , name_(std::move(name))
         , args_(std::move(args))
     {}
+
+    void CallExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     const std::string& CallExp::name_get() const
     {
@@ -152,6 +198,11 @@ namespace ast
         : Exp(location)
         , name_(std::move(name))
     {}
+
+    void IdentExp::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
 
     const std::string& IdentExp::name_get() const
     {

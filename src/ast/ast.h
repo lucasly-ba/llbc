@@ -30,7 +30,7 @@ namespace ast
         Location location_;
     };
 
-    class Program : Ast
+    class Program
     {
     public:
         Program(const Location& location, std::vector<dec_ptr> decs);

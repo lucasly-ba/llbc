@@ -25,6 +25,8 @@ namespace ast
                exp_ptr init);
         VarDec(const Location& location, std::string name, exp_ptr init);
 
+        void accept(Visitor& v) override;
+
         std::optional<Type> type_get() const;
         void type_set(Type type);
 
@@ -45,6 +47,8 @@ namespace ast
         FuncDec(const Location& location, std::string name,
                 std::vector<std::unique_ptr<VarDec>> args,
                 std::vector<stmt_ptr> body);
+
+        void accept(Visitor& v) override;
 
         const std::vector<std::unique_ptr<VarDec>>& args_get() const;
         std::vector<std::unique_ptr<VarDec>>& args_get();
@@ -79,6 +83,8 @@ namespace ast
         SceneDec(const Location& location, std::string name,
                  std::vector<stmt_ptr> body);
 
+        void accept(Visitor& v) override;
+
         std::optional<int> max_players_get() const;
         void max_players_set(std::optional<int> max_players);
 
@@ -100,6 +106,8 @@ namespace ast
     public:
         PlayerDec(const Location& location, std::string name, exp_ptr dollar,
                   exp_ptr chance, exp_ptr reputation);
+
+        void accept(Visitor& v) override;
 
         Exp& dollar_get() const;
         void dollar_set(exp_ptr dollar);
