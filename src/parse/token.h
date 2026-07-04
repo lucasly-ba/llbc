@@ -18,6 +18,7 @@ enum class TokenKind
     Player,
     Max,
     Start,
+    Reputation,
 
     // Types
     Int,
@@ -26,16 +27,6 @@ enum class TokenKind
     Bool,
     Dollar,
     Chance,
-    Reputation,
-
-    // Builtins
-    Say,
-    Ask,
-    Roll,
-    Flip,
-    Draw,
-    Gain,
-    Lose,
     Enter,
 
     // Arithmetic ops
@@ -108,13 +99,6 @@ inline const std::unordered_map<std::string, TokenKind> keywords = {
     { "false", TokenKind::BoolLit },
     { "dollar", TokenKind::Dollar },
     { "chance", TokenKind::Chance },
-    { "say", TokenKind::Say },
-    { "ask", TokenKind::Ask },
-    { "roll", TokenKind::Roll },
-    { "flip", TokenKind::Flip },
-    { "draw", TokenKind::Draw },
-    { "gain", TokenKind::Gain },
-    { "lose", TokenKind::Lose },
     { "enters", TokenKind::Enter },
     { "start", TokenKind::Start },
     { "max", TokenKind::Max },
@@ -171,20 +155,6 @@ inline std::string to_string(TokenKind kind)
         return "Chance";
     case TokenKind::Reputation:
         return "Reputation";
-    case TokenKind::Say:
-        return "Say";
-    case TokenKind::Ask:
-        return "Ask";
-    case TokenKind::Roll:
-        return "Roll";
-    case TokenKind::Flip:
-        return "Flip";
-    case TokenKind::Draw:
-        return "Draw";
-    case TokenKind::Gain:
-        return "Gain";
-    case TokenKind::Lose:
-        return "Lose";
     case TokenKind::Enter:
         return "Enter";
     case TokenKind::Plus:

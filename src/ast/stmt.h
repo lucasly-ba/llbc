@@ -66,4 +66,28 @@ namespace ast
         explicit BreakStmt(const Location& location);
     };
 
+    class ReturnStmt : public Stmt
+    {
+    public:
+        ReturnStmt(const Location& location, exp_ptr value);
+        ReturnStmt(const Location& location);
+
+        Exp* value_get() const;
+        void value_set(exp_ptr value);
+
+    private:
+        exp_ptr value_;
+    };
+
+    class ExpStmt : public Stmt
+    {
+    public:
+        ExpStmt(const Location& location, exp_ptr exp);
+
+        Exp& exp_get() const;
+
+    private:
+        exp_ptr exp_;
+    };
+
 } // namespace ast

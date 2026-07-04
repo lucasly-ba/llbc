@@ -21,7 +21,6 @@ namespace ast
     class ReputationLitExp;
     class CallExp;
     class IdentExp;
-    class BuiltinExp;
 
     class Stmt;
     class LetStmt;
@@ -30,7 +29,6 @@ namespace ast
     class BreakStmt;
     class ReturnStmt;
     class ExprStmt;
-    class BuiltinStmt;
 
     class Type;
 
@@ -40,6 +38,5 @@ namespace ast
     using dec_ptr = std::unique_ptr<Dec>;
     using exp_ptr = std::unique_ptr<Exp>;
     using stmt_ptr = std::unique_ptr<Stmt>;
-    using pattern_ptr = std::unique_ptr<Pattern>;
 
 } // namespace ast
