@@ -18,7 +18,7 @@ namespace ast
         virtual void visit(FloatExp& node) = 0;
         virtual void visit(StringExp& node) = 0;
         virtual void visit(BoolExp& node) = 0;
-        virtual void visit(DollarExp& node) = 0;
+        virtual void visit(DollarsExp& node) = 0;
         virtual void visit(ChanceExp& node) = 0;
         virtual void visit(ReputationExp& node) = 0;
         virtual void visit(CallExp& node) = 0;

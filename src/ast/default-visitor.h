@@ -16,7 +16,7 @@ namespace ast
         void visit(FloatExp& node) override;
         void visit(StringExp& node) override;
         void visit(BoolExp& node) override;
-        void visit(DollarExp& node) override;
+        void visit(DollarsExp& node) override;
         void visit(ChanceExp& node) override;
         void visit(ReputationExp& node) override;
         void visit(CallExp& node) override;

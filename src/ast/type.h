@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 #include <string>
 
 namespace ast
@@ -13,6 +14,8 @@ namespace ast
         Chance,
         Reputation,
     };
+
+    std::optional<Type> get_type(const std::string& value);
 
     std::string to_string(Type type);
 } // namespace ast

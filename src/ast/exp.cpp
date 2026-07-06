@@ -130,11 +130,11 @@ namespace ast
         value_ = value;
     }
 
-    DollarExp::DollarExp(const Location& location, int value)
+    DollarsExp::DollarsExp(const Location& location, int value)
         : IntExp(location, value)
     {}
 
-    void DollarExp::accept(Visitor& v)
+    void DollarsExp::accept(Visitor& v)
     {
         v.visit(*this);
     }

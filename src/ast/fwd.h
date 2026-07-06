@@ -17,7 +17,7 @@ namespace ast
     class FloatExp;
     class StringExp;
     class BoolExp;
-    class DollarExp;
+    class DollarsExp;
     class ChanceExp;
     class ReputationExp;
     class CallExp;

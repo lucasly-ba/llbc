@@ -102,10 +102,10 @@ namespace ast
         bool value_;
     };
 
-    class DollarExp : public IntExp
+    class DollarsExp : public IntExp
     {
     public:
-        DollarExp(const Location& location, int value);
+        DollarsExp(const Location& location, int value);
 
         void accept(Visitor& v) override;
     };
