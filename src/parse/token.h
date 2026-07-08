@@ -18,7 +18,6 @@ namespace parser
         Return,
         Player,
         Max,
-        Start,
         Streak,
 
         // Types
@@ -28,7 +27,6 @@ namespace parser
         Bool,
         Dollars,
         Chance,
-        Enter,
 
         // Arithmetic ops
         Plus,
@@ -103,8 +101,6 @@ namespace parser
         { "streak", TokenKind::Streak },
         { "true", TokenKind::BoolLit },
         { "false", TokenKind::BoolLit },
-        { "enters", TokenKind::Enter },
-        { "start", TokenKind::Start },
         { "max", TokenKind::Max },
         { "player", TokenKind::Player },
     };
@@ -160,8 +156,6 @@ namespace parser
             return "Chance";
         case TokenKind::Streak:
             return "Streak";
-        case TokenKind::Enter:
-            return "Enter";
         case TokenKind::Plus:
             return "Plus";
         case TokenKind::Minus:
@@ -228,8 +222,6 @@ namespace parser
             return "Comment";
         case TokenKind::Error:
             return "Error";
-        case TokenKind::Start:
-            return "Start";
         case TokenKind::Max:
             return "Max";
         case TokenKind::Player:
