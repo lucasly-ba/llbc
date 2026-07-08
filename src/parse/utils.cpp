@@ -10,7 +10,7 @@ namespace parser
 {
     void Lexer::skip_white_space()
     {
-        while (!is_eof() && (cur() == ' ' || cur() == '\t'))
+        while (!is_eof() && (cur() == ' ' || cur() == '\t' || cur() == '\r'))
             walk();
     }
 
