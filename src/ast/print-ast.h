@@ -37,4 +37,6 @@ namespace ast
     };
 
     std::ostream& operator<<(std::ostream& os, Exp& e);
+    std::ostream& operator<<(std::ostream& os, Stmt& e);
+    std::ostream& operator<<(std::ostream& os, Dec& e);
 } // namespace ast

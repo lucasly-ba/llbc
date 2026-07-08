@@ -1,7 +1,7 @@
 #include <ast/all.h>
 #include <ast/print-ast.h>
-
-#include "stmt.h"
+#include <exp.h>
+#include <stmt.h>
 
 namespace ast
 {
@@ -17,6 +17,20 @@ namespace ast
         return os;
     }
 
+    std::ostream& operator<<(std::ostream& os, Stmt& stmt)
+    {
+        PrintAst printer(os);
+        stmt.accept(printer);
+        return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, Dec& dec)
+    {
+        PrintAst printer(os);
+        dec.accept(printer);
+        return os;
+    }
+
     void PrintAst::visit(VarDec& e)
     {
         ostr_ << "var " << e.name_get();
@@ -28,24 +42,20 @@ namespace ast
     void PrintAst::visit(FuncDec& e)
     {
         ostr_ << "fn " << e.name_get() << "(";
-        auto size = e.args_get().size();
-        size_t i = 0;
-        while (i < size - 1)
+        const auto& args = e.args_get();
+        for (size_t i = 0; i < args.size(); ++i)
         {
-            const auto& arg = e.args_get().at(i);
-            ostr_ << arg->name_get() << ": " << to_string(e.type_get().value())
-                  << ", ";
-            ++i;
+            if (i != 0)
+                ostr_ << ", ";
+            ostr_ << args.at(i)->name_get() << ": "
+                  << to_string(args.at(i)->type_get().value());
         }
-        if (size != 0)
-            ostr_ << e.args_get().at(i)->name_get() << ": "
-                  << to_string(e.type_get().value());
         ostr_ << ")";
         if (e.has_type())
             ostr_ << " ->" << to_string(e.type_get().value());
         ostr_ << "\n{\n";
         for (auto& stmt : e.body_get())
-            ostr_ << "\t" << stmt << "\n";
+            ostr_ << "\t" << *stmt;
         ostr_ << "}\n";
     }
 
@@ -55,10 +65,10 @@ namespace ast
         if (e.has_max_players())
             ostr_ << " max " << e.max_players_get().value();
         if (auto precond = e.precondition_get())
-            ostr_ << " requires " << precond;
+            ostr_ << " requires " << *precond;
         ostr_ << "\n{\n";
         for (auto& stmt : e.body_get())
-            ostr_ << "\t" << stmt << "\n";
+            ostr_ << "\t" << *stmt;
         ostr_ << "}\n";
     }
 
@@ -66,14 +76,17 @@ namespace ast
     {
         ostr_ << "player " << e.name_get();
         ostr_ << "\n{\n";
-        ostr_ << "\t" << "dollar: " << e.dollar_get() << ",\n";
+        ostr_ << "\t" << "dollars: " << e.dollar_get() << ",\n";
         ostr_ << "\t" << "chance: " << e.chance_get() << ",\n";
-        ostr_ << "\t" << "streak: " << e.streak_get() << ",\n";
+        ostr_ << "\t" << "streak: " << e.streak_get() << "\n";
         ostr_ << "}\n\n";
     }
 
     void PrintAst::visit(OpExp& e)
-    {}
+    {
+        ostr_ << "(" << e.left_get() << e.to_string(e.oper_get())
+              << e.right_get() << ")";
+    }
 
     void PrintAst::visit(IntExp& e)
     {
@@ -108,17 +121,14 @@ namespace ast
     void PrintAst::visit(CallExp& e)
     {
         ostr_ << e.name_get() << "(";
-        auto size = e.args_get().size();
-        size_t i = 0;
-        while (i < size - 1)
+        const auto& args = e.args_get();
+        for (size_t i = 0; i < args.size(); ++i)
         {
-            const auto& arg = e.args_get().at(i);
-            ostr_ << arg << ", ";
-            ++i;
+            if (i != 0)
+                ostr_ << ", ";
+            ostr_ << *args.at(i);
         }
-        if (size != 0)
-            ostr_ << e.args_get().at(i);
-        ostr_ << ");";
+        ostr_ << ")";
     }
 
     void PrintAst::visit(IdentExp& e)
@@ -128,15 +138,15 @@ namespace ast
 
     void PrintAst::visit(VarStmt& e)
     {
-        ostr_ << &e.vardec_get() << ";";
+        ostr_ << e.vardec_get();
     }
 
     void PrintAst::visit(IfStmt& e)
     {
-        ostr_ << "if " << &e.condition_get();
+        ostr_ << "if " << e.condition_get();
         ostr_ << "\n{\n";
         for (auto& stmt : e.then_branch_get())
-            ostr_ << "\t" << stmt << "\n";
+            ostr_ << "\t" << *stmt;
         ostr_ << "}";
         if (e.else_branch_get().empty() == false)
         {
@@ -144,9 +154,10 @@ namespace ast
             ostr_ << "else";
             ostr_ << "\n{\n";
             for (auto& stmt : e.else_branch_get())
-                ostr_ << "\t" << stmt << "\n";
+                ostr_ << "\t" << *stmt;
             ostr_ << "}";
         }
+        ostr_ << "\n";
     }
 
     void PrintAst::visit(LoopStmt& e)
@@ -154,24 +165,27 @@ namespace ast
         ostr_ << "loop";
         ostr_ << "\n{\n";
         for (auto& stmt : e.body_get())
-            ostr_ << "\t" << stmt << "\n";
-        ostr_ << "}";
+            ostr_ << "\t" << *stmt;
+        ostr_ << "}\n";
     }
 
     void PrintAst::visit(BreakStmt& e)
     {
         (void)e;
-        ostr_ << "break;";
+        ostr_ << "break;\n";
     }
 
     void PrintAst::visit(ReturnStmt& e)
     {
-        ostr_ << "return " << e.value_get() << ";";
+        ostr_ << "return";
+        if (e.value_get())
+            ostr_ << " " << *e.value_get();
+        ostr_ << ";\n";
     }
 
     void PrintAst::visit(ExpStmt& e)
     {
-        ostr_ << &e.exp_get() << ";";
+        ostr_ << e.exp_get() << ";\n";
     }
 
 } // namespace ast
