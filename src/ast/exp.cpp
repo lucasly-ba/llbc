@@ -20,6 +20,38 @@ namespace ast
         v.visit(*this);
     }
 
+    std::string OpExp::to_string(OpExp::Oper op)
+    {
+        switch (op)
+        {
+        case OpExp::Oper::ADD:
+            return "+";
+        case OpExp::Oper::SUB:
+            return "-";
+        case OpExp::Oper::MUL:
+            return "*";
+        case OpExp::Oper::DIV:
+            return "/";
+        case OpExp::Oper::EQ:
+            return "==";
+        case OpExp::Oper::NEQ:
+            return "!=";
+        case OpExp::Oper::LT:
+            return "<";
+        case OpExp::Oper::LEQ:
+            return "<=";
+        case OpExp::Oper::GT:
+            return ">";
+        case OpExp::Oper::GEQ:
+            return ">=";
+        case OpExp::Oper::AND:
+            return "&&";
+        case OpExp::Oper::OR:
+            return "||";
+        default:
+            return "unknown";
+        }
+    }
     Exp& OpExp::left_get() const
     {
         return *left_;

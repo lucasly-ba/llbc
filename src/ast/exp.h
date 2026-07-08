@@ -30,6 +30,7 @@ namespace ast
             OR,
         };
         OpExp(const Location& location, exp_ptr left, Oper oper, exp_ptr right);
+        std::string to_string(Oper type);
 
         void accept(Visitor& v) override;
 
