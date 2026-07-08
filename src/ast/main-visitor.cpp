@@ -108,7 +108,8 @@ namespace ast
 
     void MainVisitor::visit(ReturnStmt& e)
     {
-        e.value_get()->accept(*this);
+        if (auto value = e.value_get())
+            value->accept(*this);
     }
 
     void MainVisitor::visit(ExpStmt& e)
