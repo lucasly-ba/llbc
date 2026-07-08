@@ -1,2 +1,0 @@
-fn foo() -> int:
-let x = 5 - 3

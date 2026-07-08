@@ -1,0 +1,4 @@
+# a full line comment
+var x = 42 # inline comment
+var y = 10
+# comment at end of file

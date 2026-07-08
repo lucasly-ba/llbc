@@ -1,0 +1,9 @@
+player hero { dollars: 100$, chance: 50%, streak: 3x }
+
+scene main max 4 requires level >= 2
+{
+	var gold: dollars = 100$;
+	if gold > 50$ && level < 10 {
+		var msg = "you win\n";
+	}
+}
