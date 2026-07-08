@@ -55,7 +55,6 @@ namespace parser
         exp_ptr parse_comparison_exp();
         exp_ptr parse_additive_exp();
         exp_ptr parse_multiplicative_exp();
-        exp_ptr parse_unary_exp();
         exp_ptr parse_primary_exp();
 
         // utils
