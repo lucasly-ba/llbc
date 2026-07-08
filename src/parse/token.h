@@ -184,10 +184,18 @@ namespace parser
             return "Leq";
         case TokenKind::Geq:
             return "Geq";
+        case TokenKind::And:
+            return "And";
+        case TokenKind::Or:
+            return "Or";
         case TokenKind::LPar:
             return "LPar";
         case TokenKind::RPar:
             return "RPar";
+        case TokenKind::LBrace:
+            return "LBrace";
+        case TokenKind::RBrace:
+            return "RBrace";
         case TokenKind::Colon:
             return "Colon";
         case TokenKind::SemiColon:
