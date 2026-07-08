@@ -192,7 +192,7 @@ namespace parser
         walk();
         body = parse_body();
         if (kind() != TokenKind::RBrace)
-            return fail_dec("Expected right bracket in function declaration");
+            return fail_dec("Expected right bracket in scene declaration");
         walk();
         return make_SceneDec(location, std::move(name), max_players,
                              std::move(precondition), std::move(body));
