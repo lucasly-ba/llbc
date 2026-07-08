@@ -20,7 +20,7 @@ namespace ast
         virtual void visit(BoolExp& node) = 0;
         virtual void visit(DollarsExp& node) = 0;
         virtual void visit(ChanceExp& node) = 0;
-        virtual void visit(ReputationExp& node) = 0;
+        virtual void visit(StreakExp& node) = 0;
         virtual void visit(CallExp& node) = 0;
         virtual void visit(IdentExp& node) = 0;
 
