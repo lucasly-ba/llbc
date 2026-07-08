@@ -1,0 +1,10 @@
+fn f() {
+	var a = 1;
+	var b = 1.5;
+	var c = "hello";
+	var d = true;
+	var e = false;
+	var f = 100$;
+	var g = 50%;
+	var h = 3x;
+}

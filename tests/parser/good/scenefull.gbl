@@ -1,0 +1,16 @@
+scene intro max 4
+{
+	var a = 1;
+}
+
+scene battle requires level > 5
+{
+	var b = 2;
+}
+
+scene boss max 2 requires ready && level > 10
+{
+	loop {
+		break;
+	}
+}

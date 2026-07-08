@@ -1,0 +1,6 @@
+fn f() {
+	doThing();
+	x;
+	a + b;
+	compute(1, 2, 3);
+}

@@ -1,0 +1,11 @@
+fn f() {
+	loop {
+		var a = 1;
+		break;
+	}
+	loop {
+		loop {
+			break;
+		}
+	}
+}

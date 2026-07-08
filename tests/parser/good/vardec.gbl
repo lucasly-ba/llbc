@@ -1,0 +1,18 @@
+var a: int = 1;
+var b: int = 1;
+var c: float = 1;
+var d: string = 1;
+var e: bool = 1;
+var f: dollars = 1;
+var g: chance = 1;
+var h: streak = 1x;
+
+
+var a = 1;
+var a = "1";
+var a = 1.1;
+var a = true;
+var a = false;
+var a = 1$;
+var a = 1%;
+var a = 1x;

@@ -1,0 +1,15 @@
+fn f() {
+	if x > 0 {
+		var a = 1;
+	}
+	if x == 1 {
+		var b = 2;
+	} else {
+		var c = 3;
+	}
+	if a && b {
+		if c {
+			var d = 4;
+		}
+	}
+}

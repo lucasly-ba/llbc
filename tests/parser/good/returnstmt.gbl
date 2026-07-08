@@ -1,0 +1,9 @@
+fn f() -> int {
+	return 1;
+}
+fn g() -> bool {
+	return a && b;
+}
+fn h() -> int {
+	return add(1, 2);
+}

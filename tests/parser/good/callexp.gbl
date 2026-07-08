@@ -1,0 +1,7 @@
+fn f() {
+	var a = noargs();
+	var b = one(1);
+	var c = many(1, 2, 3);
+	var d = nested(inner(1), 2);
+	var e = trailing(1, 2,);
+}

@@ -1,0 +1,4 @@
+player first { dollars: 1$, chance: 1%, streak: 1x }
+player second { chance: 22%, streak: 22x , dollars: 22$ }
+player third { streak: 222x ,dollars: 222$, chance: 100% }
+

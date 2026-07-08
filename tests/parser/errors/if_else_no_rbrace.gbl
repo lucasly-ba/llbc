@@ -1,0 +1,3 @@
+fn f() {
+	if x { } else {
+		var a = 1;

@@ -1,0 +1,6 @@
+fn f() {
+	var a = true && false;
+	var b = true || false;
+	var c = a && b || c;
+	var d = x > 0 && y < 10;
+}
