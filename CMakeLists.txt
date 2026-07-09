@@ -37,6 +37,7 @@ set(SOURCES
     src/parse/utils.cpp
     src/parse/factory.cpp
     src/bind/binder.cpp
+    src/bind/scope.cpp
     src/type/type-checker.cpp
     src/llvm/codegen.cpp
 )
