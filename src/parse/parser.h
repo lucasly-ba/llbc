@@ -46,6 +46,8 @@ namespace parser
         stmt_ptr parse_loop_stmt();
         stmt_ptr parse_break_stmt();
         stmt_ptr parse_return_stmt();
+        stmt_ptr parse_enters_stmt();
+        stmt_ptr parse_start_stmt();
         stmt_ptr parse_exp_stmt();
 
         // exp
@@ -61,6 +63,7 @@ namespace parser
         void walk();
         const Token& cur() const;
         TokenKind kind() const;
+        TokenKind peek_kind() const;
         const std::string& value() const;
         bool is_eof() const;
         bool is_token_start_dec(TokenKind kind) const;

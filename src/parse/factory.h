@@ -65,5 +65,10 @@ namespace parser
 
     stmt_ptr make_ReturnStmt(const Location& location, exp_ptr value);
 
+    stmt_ptr make_EntersStmt(const Location& location, std::string player_name,
+                             std::string scene_name);
+
+    stmt_ptr make_StartStmt(const Location& location, std::string scene_name);
+
     stmt_ptr make_ExpStmt(const Location& location, exp_ptr exp);
 } // namespace parser

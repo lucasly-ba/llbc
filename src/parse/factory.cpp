@@ -139,6 +139,18 @@ namespace parser
         return std::make_unique<ReturnStmt>(location, std::move(value));
     }
 
+    stmt_ptr make_EntersStmt(const Location& location, std::string player_name,
+                             std::string scene_name)
+    {
+        return std::make_unique<EntersStmt>(location, std::move(player_name),
+                                            std::move(scene_name));
+    }
+
+    stmt_ptr make_StartStmt(const Location& location, std::string scene_name)
+    {
+        return std::make_unique<StartStmt>(location, std::move(scene_name));
+    }
+
     stmt_ptr make_ExpStmt(const Location& location, exp_ptr exp)
     {
         return std::make_unique<ExpStmt>(location, std::move(exp));

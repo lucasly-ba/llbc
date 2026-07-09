@@ -146,6 +146,43 @@ namespace ast
         value_ = std::move(value);
     }
 
+    EntersStmt::EntersStmt(const Location& location, std::string player_name,
+                           std::string scene_name)
+        : Stmt(location)
+        , player_name_(std::move(player_name))
+        , scene_name_(std::move(scene_name))
+    {}
+
+    void EntersStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
+    const std::string& EntersStmt::player_name_get() const
+    {
+        return player_name_;
+    }
+
+    const std::string& EntersStmt::scene_name_get() const
+    {
+        return scene_name_;
+    }
+
+    StartStmt::StartStmt(const Location& location, std::string scene_name)
+        : Stmt(location)
+        , scene_name_(std::move(scene_name))
+    {}
+
+    void StartStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
+    const std::string& StartStmt::scene_name_get() const
+    {
+        return scene_name_;
+    }
+
     ExpStmt::ExpStmt(const Location& location, exp_ptr exp)
         : Stmt(location)
         , exp_(std::move(exp))

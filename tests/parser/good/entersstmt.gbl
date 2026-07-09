@@ -1,0 +1,13 @@
+player toto { dollars: 1$, chance: 1%, streak: 1x }
+player toto1 { dollars: 1$, chance: 1%, streak: 1x }
+
+scene main
+{
+	toto enters another_scene;
+	toto1 enters another_scene;
+	start another_scene;
+}
+
+scene another_scene
+{
+}

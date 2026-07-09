@@ -18,7 +18,8 @@ namespace parser
         Return,
         Player,
         Max,
-        Streak,
+        Enters,
+        Start,
 
         // Types
         Int,
@@ -27,6 +28,7 @@ namespace parser
         Bool,
         Dollars,
         Chance,
+        Streak,
 
         // Arithmetic ops
         Plus,
@@ -103,6 +105,8 @@ namespace parser
         { "false", TokenKind::BoolLit },
         { "max", TokenKind::Max },
         { "player", TokenKind::Player },
+        { "enters", TokenKind::Enters },
+        { "start", TokenKind::Start },
     };
 
     inline TokenKind player_info_kind(char c)
@@ -226,6 +230,10 @@ namespace parser
             return "Max";
         case TokenKind::Player:
             return "Player";
+        case TokenKind::Enters:
+            return "Enters";
+        case TokenKind::Start:
+            return "Start";
         default:
             return "Unknown";
         }

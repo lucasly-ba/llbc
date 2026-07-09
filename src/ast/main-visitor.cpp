@@ -112,6 +112,16 @@ namespace ast
             value->accept(*this);
     }
 
+    void MainVisitor::visit(EntersStmt& e)
+    {
+        (void)e;
+    }
+
+    void MainVisitor::visit(StartStmt& e)
+    {
+        (void)e;
+    }
+
     void MainVisitor::visit(ExpStmt& e)
     {
         e.exp_get().accept(*this);

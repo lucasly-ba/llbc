@@ -1,6 +1,7 @@
 #pragma once
 #include <ast/ast.h>
 #include <ast/fwd.h>
+#include <string>
 #include <vector>
 
 namespace ast
@@ -89,6 +90,35 @@ namespace ast
 
     private:
         exp_ptr value_;
+    };
+
+    class EntersStmt : public Stmt
+    {
+    public:
+        EntersStmt(const Location& location, std::string player_name,
+                   std::string scene_name);
+
+        void accept(Visitor& v) override;
+
+        const std::string& player_name_get() const;
+        const std::string& scene_name_get() const;
+
+    private:
+        std::string player_name_;
+        std::string scene_name_;
+    };
+
+    class StartStmt : public Stmt
+    {
+    public:
+        StartStmt(const Location& location, std::string scene_name);
+
+        void accept(Visitor& v) override;
+
+        const std::string& scene_name_get() const;
+
+    private:
+        std::string scene_name_;
     };
 
     class ExpStmt : public Stmt

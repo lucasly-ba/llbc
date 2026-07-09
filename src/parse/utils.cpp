@@ -88,6 +88,13 @@ namespace parser
         return cur().kind;
     }
 
+    TokenKind Parser::peek_kind() const
+    {
+        if (pos_ + 1 >= tokens_.size())
+            return TokenKind::Eof;
+        return tokens_[pos_ + 1].kind;
+    }
+
     bool Parser::is_token_start_dec(TokenKind kind) const
     {
         return kind == TokenKind::Var || kind == TokenKind::Function
@@ -130,7 +137,7 @@ namespace parser
         while (!is_eof() && kind() != TokenKind::RBrace
                && kind() != TokenKind::Var && kind() != TokenKind::If
                && kind() != TokenKind::Loop && kind() != TokenKind::Break
-               && kind() != TokenKind::Return)
+               && kind() != TokenKind::Return && kind() != TokenKind::Start)
             walk();
     }
 

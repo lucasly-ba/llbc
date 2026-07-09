@@ -183,6 +183,17 @@ namespace ast
         ostr_ << ";\n";
     }
 
+    void PrintAst::visit(EntersStmt& e)
+    {
+        ostr_ << e.player_name_get() << " enters " << e.scene_name_get()
+              << ";\n";
+    }
+
+    void PrintAst::visit(StartStmt& e)
+    {
+        ostr_ << "start " << e.scene_name_get() << ";\n";
+    }
+
     void PrintAst::visit(ExpStmt& e)
     {
         ostr_ << e.exp_get() << ";\n";

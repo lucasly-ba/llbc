@@ -1,0 +1,8 @@
+scene main
+{
+	start battle;
+}
+
+scene battle
+{
+}

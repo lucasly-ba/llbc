@@ -306,6 +306,12 @@ namespace parser
             return parse_break_stmt();
         case TokenKind::Return:
             return parse_return_stmt();
+        case TokenKind::Start:
+            return parse_start_stmt();
+        case TokenKind::ID:
+            if (peek_kind() == TokenKind::Enters)
+                return parse_enters_stmt();
+            return parse_exp_stmt();
         default:
             return parse_exp_stmt();
         }
@@ -386,6 +392,37 @@ namespace parser
             return fail_stmt("Expected semicolon after return");
         walk();
         return make_ReturnStmt(location, std::move(value));
+    }
+
+    stmt_ptr Parser::parse_enters_stmt()
+    {
+        Location location = get_location();
+        std::string player_name = value();
+        walk();
+        walk();
+        if (kind() != TokenKind::ID)
+            return fail_stmt("Expected scene name after `enters`");
+        std::string scene_name = value();
+        walk();
+        if (kind() != TokenKind::SemiColon)
+            return fail_stmt("Expected semicolon after enters statement");
+        walk();
+        return make_EntersStmt(location, std::move(player_name),
+                               std::move(scene_name));
+    }
+
+    stmt_ptr Parser::parse_start_stmt()
+    {
+        Location location = get_location();
+        walk();
+        if (kind() != TokenKind::ID)
+            return fail_stmt("Expected scene name after `start`");
+        std::string scene_name = value();
+        walk();
+        if (kind() != TokenKind::SemiColon)
+            return fail_stmt("Expected semicolon after start statement");
+        walk();
+        return make_StartStmt(location, std::move(scene_name));
     }
 
     stmt_ptr Parser::parse_exp_stmt()

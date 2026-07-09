@@ -30,6 +30,8 @@ namespace ast
     class LoopStmt;
     class BreakStmt;
     class ReturnStmt;
+    class EntersStmt;
+    class StartStmt;
     class ExpStmt;
 
     class Visitor;

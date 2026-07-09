@@ -29,6 +29,8 @@ namespace ast
         virtual void visit(LoopStmt& node) = 0;
         virtual void visit(BreakStmt& node) = 0;
         virtual void visit(ReturnStmt& node) = 0;
+        virtual void visit(EntersStmt& node) = 0;
+        virtual void visit(StartStmt& node) = 0;
         virtual void visit(ExpStmt& node) = 0;
     };
 } // namespace ast

@@ -27,6 +27,8 @@ namespace ast
         void visit(LoopStmt& e) override;
         void visit(BreakStmt& e) override;
         void visit(ReturnStmt& e) override;
+        void visit(EntersStmt& e) override;
+        void visit(StartStmt& e) override;
         void visit(ExpStmt& e) override;
     };
 } // namespace ast
