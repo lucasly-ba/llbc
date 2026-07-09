@@ -163,9 +163,39 @@ namespace ast
         return player_name_;
     }
 
+    void EntersStmt::player_name_set(std::string player_name)
+    {
+        player_name_ = player_name;
+    }
+
     const std::string& EntersStmt::scene_name_get() const
     {
         return scene_name_;
+    }
+
+    void EntersStmt::scene_name_set(std::string scene_name)
+    {
+        scene_name_ = scene_name;
+    }
+
+    Dec* EntersStmt::player_def_get() const
+    {
+        return player_def_;
+    }
+
+    void EntersStmt::player_def_set(Dec* player_def)
+    {
+        player_def_ = player_def;
+    }
+
+    Dec* EntersStmt::scene_def_get() const
+    {
+        return scene_def_;
+    }
+
+    void EntersStmt::scene_def_set(Dec* scene_def)
+    {
+        scene_def_ = scene_def;
     }
 
     StartStmt::StartStmt(const Location& location, std::string scene_name)
@@ -178,9 +208,24 @@ namespace ast
         v.visit(*this);
     }
 
+    void StartStmt::scene_name_set(std::string scene_name)
+    {
+        scene_name_ = scene_name;
+    }
+
     const std::string& StartStmt::scene_name_get() const
     {
         return scene_name_;
+    }
+
+    Dec* StartStmt::scene_def_get() const
+    {
+        return scene_def_;
+    }
+
+    void StartStmt::scene_def_set(Dec* scene_def)
+    {
+        scene_def_ = scene_def;
     }
 
     ExpStmt::ExpStmt(const Location& location, exp_ptr exp)

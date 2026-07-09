@@ -101,9 +101,20 @@ namespace ast
         void accept(Visitor& v) override;
 
         const std::string& player_name_get() const;
+        void player_name_set(std::string name);
+
         const std::string& scene_name_get() const;
+        void scene_name_set(std::string name);
+
+        Dec* player_def_get() const;
+        void player_def_set(Dec* player_def);
+
+        Dec* scene_def_get() const;
+        void scene_def_set(Dec* scene_def);
 
     private:
+        Dec* player_def_ = nullptr;
+        Dec* scene_def_ = nullptr;
         std::string player_name_;
         std::string scene_name_;
     };
@@ -116,8 +127,13 @@ namespace ast
         void accept(Visitor& v) override;
 
         const std::string& scene_name_get() const;
+        void scene_name_set(std::string name);
+
+        Dec* scene_def_get() const;
+        void scene_def_set(Dec* scene_def);
 
     private:
+        Dec* scene_def_ = nullptr;
         std::string scene_name_;
     };
 

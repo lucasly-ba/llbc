@@ -226,6 +226,16 @@ namespace ast
         args_ = std::move(args);
     }
 
+    const Dec* CallExp::def_get() const
+    {
+        return def_;
+    }
+
+    void CallExp::def_set(Dec* def)
+    {
+        def_ = def;
+    }
+
     IdentExp::IdentExp(const Location& location, std::string name)
         : Exp(location)
         , name_(std::move(name))
@@ -244,5 +254,15 @@ namespace ast
     void IdentExp::name_set(std::string name)
     {
         name_ = std::move(name);
+    }
+
+    const Dec* IdentExp::def_get() const
+    {
+        return def_;
+    }
+
+    void IdentExp::def_set(Dec* def)
+    {
+        def_ = def;
     }
 } // namespace ast

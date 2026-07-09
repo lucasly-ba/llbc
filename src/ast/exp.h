@@ -144,7 +144,11 @@ namespace ast
         std::vector<exp_ptr>& args_get();
         void args_set(std::vector<exp_ptr> args);
 
+        const Dec* def_get() const;
+        void def_set(Dec* def);
+
     private:
+        Dec* def_ = nullptr;
         std::string name_;
         std::vector<exp_ptr> args_;
     };
@@ -159,7 +163,11 @@ namespace ast
         const std::string& name_get() const;
         void name_set(std::string name);
 
+        const Dec* def_get() const;
+        void def_set(Dec* def);
+
     private:
+        Dec* def_ = nullptr;
         std::string name_;
     };
 
