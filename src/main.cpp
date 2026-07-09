@@ -1,5 +1,5 @@
 #include <CLI/CLI.hpp>
-#include <all.h>
+#include <binder.h>
 #include <fstream>
 #include <iostream>
 #include <lexer.h>
@@ -46,6 +46,17 @@ int main(int argc, char* argv[])
                       << err.col << "\n";
         return 2;
     }
+
+    bind::Binder binder;
+    binder.bind_program(program);
+    if (binder.has_error())
+    {
+        for (auto& err : binder.get_errors())
+            std::cerr << "error: " << err.message << " at " << err.location.line
+                      << ":" << err.location.col << "\n";
+        return 3;
+    }
+
     if (print_ast)
     {
         ast::PrintAst ast_printer(std::cout);
