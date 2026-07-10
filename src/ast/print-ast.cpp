@@ -1,14 +1,51 @@
 #include <ast/all.h>
 #include <ast/print-ast.h>
+#include <dec.h>
 #include <exp.h>
+#include <ios>
 #include <stmt.h>
 
 namespace ast
 {
+    static int bindings_index()
+    {
+        static int index = std::ios_base::xalloc();
+        return index;
+    }
 
     PrintAst::PrintAst(std::ostream& ostr)
         : ostr_(ostr)
     {}
+
+    PrintAst::PrintAst(std::ostream& ostr, bool bindings)
+        : ostr_(ostr)
+    {
+        ostr_.iword(bindings_index()) = bindings;
+    }
+
+    bool PrintAst::bindings() const
+    {
+        return ostr_.iword(bindings_index()) != 0;
+    }
+
+    void PrintAst::print_def(const Dec& dec)
+    {
+        if (!bindings())
+            return;
+        ostr_ << " /* &" << static_cast<const void*>(&dec) << " */";
+    }
+
+    void PrintAst::print_binding(const Dec* def)
+    {
+        if (!bindings())
+            return;
+        if (def != nullptr)
+            ostr_ << " /* ->" << static_cast<const void*>(def) << " @"
+                  << def->location_get().line << ":" << def->location_get().col
+                  << " */";
+        else
+            ostr_ << " /* unbound */";
+    }
 
     std::ostream& operator<<(std::ostream& os, Exp& e)
     {
@@ -34,6 +71,7 @@ namespace ast
     void PrintAst::visit(VarDec& e)
     {
         ostr_ << "var " << e.name_get();
+        print_def(e);
         if (e.has_type())
             ostr_ << ": " << to_string(e.type_get().value());
         ostr_ << " = " << *e.init_get() << ";\n";
@@ -41,14 +79,17 @@ namespace ast
 
     void PrintAst::visit(FuncDec& e)
     {
-        ostr_ << "fn " << e.name_get() << "(";
+        ostr_ << "fn " << e.name_get();
+        print_def(e);
+        ostr_ << "(";
         const auto& args = e.args_get();
         for (size_t i = 0; i < args.size(); ++i)
         {
             if (i != 0)
                 ostr_ << ", ";
-            ostr_ << args.at(i)->name_get() << ": "
-                  << to_string(args.at(i)->type_get().value());
+            ostr_ << args.at(i)->name_get();
+            print_def(*args.at(i));
+            ostr_ << ": " << to_string(args.at(i)->type_get().value());
         }
         ostr_ << ")";
         if (e.has_type())
@@ -62,6 +103,7 @@ namespace ast
     void PrintAst::visit(SceneDec& e)
     {
         ostr_ << "scene " << e.name_get();
+        print_def(e);
         if (e.has_max_players())
             ostr_ << " max " << e.max_players_get().value();
         if (auto precond = e.precondition_get())
@@ -75,6 +117,7 @@ namespace ast
     void PrintAst::visit(PlayerDec& e)
     {
         ostr_ << "player " << e.name_get();
+        print_def(e);
         ostr_ << "\n{\n";
         ostr_ << "\t" << "dollars: " << e.dollar_get() << ",\n";
         ostr_ << "\t" << "chance: " << e.chance_get() << ",\n";
@@ -129,11 +172,13 @@ namespace ast
             ostr_ << *args.at(i);
         }
         ostr_ << ")";
+        print_binding(e.def_get());
     }
 
     void PrintAst::visit(IdentExp& e)
     {
         ostr_ << e.name_get();
+        print_binding(e.def_get());
     }
 
     void PrintAst::visit(VarStmt& e)
@@ -185,13 +230,18 @@ namespace ast
 
     void PrintAst::visit(EntersStmt& e)
     {
-        ostr_ << e.player_name_get() << " enters " << e.scene_name_get()
-              << ";\n";
+        ostr_ << e.player_name_get();
+        print_binding(e.player_def_get());
+        ostr_ << " enters " << e.scene_name_get();
+        print_binding(e.scene_def_get());
+        ostr_ << ";\n";
     }
 
     void PrintAst::visit(StartStmt& e)
     {
-        ostr_ << "start " << e.scene_name_get() << ";\n";
+        ostr_ << "start " << e.scene_name_get();
+        print_binding(e.scene_def_get());
+        ostr_ << ";\n";
     }
 
     void PrintAst::visit(ExpStmt& e)

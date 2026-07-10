@@ -8,6 +8,7 @@ namespace ast
     {
     public:
         PrintAst(std::ostream& ostr);
+        PrintAst(std::ostream& ostr, bool bindings);
 
         void visit(VarDec& e) override;
         void visit(FuncDec& e) override;
@@ -35,6 +36,10 @@ namespace ast
         void visit(ExpStmt& e) override;
 
     private:
+        bool bindings() const;
+        void print_def(const Dec& dec);
+        void print_binding(const Dec* def);
+
         std::ostream& ostr_;
     };
 

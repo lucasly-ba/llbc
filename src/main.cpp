@@ -14,10 +14,13 @@ int main(int argc, char* argv[])
     std::string input_file;
     bool lex_trace = false;
     bool print_ast = false;
+    bool bindings = false;
 
     app.add_option("file", input_file, "Input .gblc file")->required();
     app.add_flag("--lex-trace", lex_trace, "Trace the lexer");
     app.add_flag("--print-ast", print_ast, "Pretty-print the AST");
+    app.add_flag("--bindings", bindings,
+                 "Annotate --print-ast names with their resolved definitions");
 
     CLI11_PARSE(app, argc, argv);
 
@@ -47,19 +50,23 @@ int main(int argc, char* argv[])
         return 2;
     }
 
-    bind::Binder binder;
-    binder.bind_program(program);
-    if (binder.has_error())
+    if (!print_ast || bindings)
     {
-        for (auto& err : binder.get_errors())
-            std::cerr << "error: " << err.message << " at " << err.location.line
-                      << ":" << err.location.col << "\n";
-        return 3;
+        bind::Binder binder;
+        binder.bind_program(program);
+        if (binder.has_error())
+        {
+            for (auto& err : binder.get_errors())
+                std::cerr << "error: " << err.message << " at "
+                          << err.location.line << ":" << err.location.col
+                          << "\n";
+            return 3;
+        }
     }
 
     if (print_ast)
     {
-        ast::PrintAst ast_printer(std::cout);
+        ast::PrintAst ast_printer(std::cout, bindings);
         for (auto& dec : program.decs_get())
             dec->accept(ast_printer);
     }
