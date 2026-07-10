@@ -8,16 +8,14 @@ namespace bind
     void Binder::bind_program(ast::Program& program)
     {
         scope_.scope_begin();
-        std::set<Dec*> decs;
+        std::set<std::string> names;
         bool has_player = false;
         for (auto& dec : program.decs_get())
         {
-            if (decs.contains(dec.get()))
+            if (!names.insert(dec->name_get()).second)
                 emit_error("Declaration redeclaration at top-level: "
-                               + dec.get()->name_get(),
-                           dec.get()->location_get());
-            else
-                decs.insert(dec.get());
+                               + dec->name_get(),
+                           dec->location_get());
 
             if (dynamic_cast<PlayerDec*>(dec.get()))
                 has_player = true;
@@ -52,14 +50,7 @@ namespace bind
     void Binder::visit(SceneDec& e)
     {
         if (e.name_get() == "main")
-        {
-            if (has_main_)
-            {
-                emit_error("Main scene redeclaration", e.location_get());
-                return;
-            }
             has_main_ = true;
-        }
         scope_.scope_begin();
         MainVisitor::visit(e);
         scope_.scope_end();
