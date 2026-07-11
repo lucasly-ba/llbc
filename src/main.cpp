@@ -6,6 +6,7 @@
 #include <parser.h>
 #include <print-ast.h>
 #include <sstream>
+#include <type-checker.h>
 
 int main(int argc, char* argv[])
 {
@@ -61,6 +62,17 @@ int main(int argc, char* argv[])
                           << err.location.line << ":" << err.location.col
                           << "\n";
             return 3;
+        }
+
+        type::TypeChecker typechecker;
+        typechecker.typecheck_program(program);
+        if (typechecker.has_error())
+        {
+            for (auto& err : typechecker.get_errors())
+                std::cerr << "error: " << err.message << " at "
+                          << err.location.line << ":" << err.location.col
+                          << "\n";
+            return 4;
         }
     }
 
