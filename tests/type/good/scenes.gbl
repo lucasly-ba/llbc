@@ -1,0 +1,14 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn ready() -> bool {
+	return true;
+}
+
+scene lobby requires 1 < 2
+{
+}
+
+scene main
+{
+	var ok = ready();
+}

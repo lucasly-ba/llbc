@@ -1,0 +1,9 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn f() -> int {
+	return "not an int";
+}
+
+scene main
+{
+}

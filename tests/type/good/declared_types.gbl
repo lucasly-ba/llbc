@@ -1,0 +1,12 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn f() {
+	var a: int = 1;
+	var b: float = 1.5;
+	var c: string = "hello";
+	var d: bool = true;
+}
+
+scene main
+{
+}

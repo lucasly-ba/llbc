@@ -1,0 +1,15 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn noop() {
+	var x = 1;
+}
+
+fn tick(n: int) {
+	var y = n + 1;
+}
+
+scene main
+{
+	noop();
+	tick(3);
+}

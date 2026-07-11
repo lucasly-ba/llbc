@@ -1,0 +1,11 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn f() {
+	if 1 {
+		var a = 1;
+	}
+}
+
+scene main
+{
+}

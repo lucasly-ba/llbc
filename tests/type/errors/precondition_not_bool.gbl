@@ -1,0 +1,9 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+scene lobby requires 1 + 2
+{
+}
+
+scene main
+{
+}
