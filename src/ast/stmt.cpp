@@ -146,6 +146,11 @@ namespace ast
         value_ = std::move(value);
     }
 
+    bool ReturnStmt::has_value() const
+    {
+        return value_ != nullptr;
+    }
+
     EntersStmt::EntersStmt(const Location& location, std::string player_name,
                            std::string scene_name)
         : Stmt(location)

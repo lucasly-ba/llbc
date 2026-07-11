@@ -87,6 +87,8 @@ namespace ast
         Exp* value_get() const;
         void value_set(exp_ptr value);
 
+        bool has_value() const;
+
     private:
         exp_ptr value_;
     };
