@@ -104,6 +104,13 @@ namespace parser
         return std::make_unique<VarStmt>(location, std::move(vardec));
     }
 
+    stmt_ptr make_AssignStmt(const Location& location, std::string name,
+                             exp_ptr value)
+    {
+        return std::make_unique<AssignStmt>(location, std::move(name),
+                                            std::move(value));
+    }
+
     stmt_ptr make_IfStmt(const Location& location, exp_ptr condition,
                          std::vector<stmt_ptr> then_branch,
                          std::vector<stmt_ptr> else_branch)

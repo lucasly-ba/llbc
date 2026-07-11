@@ -26,6 +26,7 @@ namespace ast
 
     class Stmt;
     class VarStmt;
+    class AssignStmt;
     class IfStmt;
     class LoopStmt;
     class BreakStmt;

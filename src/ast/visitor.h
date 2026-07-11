@@ -25,6 +25,7 @@ namespace ast
         virtual void visit(IdentExp& node) = 0;
 
         virtual void visit(VarStmt& node) = 0;
+        virtual void visit(AssignStmt& node) = 0;
         virtual void visit(IfStmt& node) = 0;
         virtual void visit(LoopStmt& node) = 0;
         virtual void visit(BreakStmt& node) = 0;

@@ -1,0 +1,6 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+scene main
+{
+	z = 5;
+}

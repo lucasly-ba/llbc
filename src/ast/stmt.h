@@ -25,6 +25,28 @@ namespace ast
         std::unique_ptr<VarDec> vardec_;
     };
 
+    class AssignStmt : public Stmt
+    {
+    public:
+        AssignStmt(const Location& location, std::string name, exp_ptr value);
+
+        void accept(Visitor& v) override;
+
+        const std::string& name_get() const;
+        void name_set(std::string name);
+
+        Exp& value_get() const;
+        void value_set(exp_ptr value);
+
+        Dec* def_get() const;
+        void def_set(Dec* def);
+
+    private:
+        Dec* def_ = nullptr;
+        std::string name_;
+        exp_ptr value_;
+    };
+
     class IfStmt : public Stmt
     {
     public:

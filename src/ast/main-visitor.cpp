@@ -83,6 +83,11 @@ namespace ast
         e.vardec_get().accept(*this);
     }
 
+    void MainVisitor::visit(AssignStmt& e)
+    {
+        e.value_get().accept(*this);
+    }
+
     void MainVisitor::visit(IfStmt& e)
     {
         e.condition_get().accept(*this);

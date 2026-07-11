@@ -49,6 +49,9 @@ namespace parser
     stmt_ptr make_VarStmt(const Location& location,
                           std::unique_ptr<VarDec> vardec);
 
+    stmt_ptr make_AssignStmt(const Location& location, std::string name,
+                             exp_ptr value);
+
     stmt_ptr make_IfStmt(const Location& location, exp_ptr condition,
                          std::vector<stmt_ptr> then_branch,
                          std::vector<stmt_ptr> else_branch);

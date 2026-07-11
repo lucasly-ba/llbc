@@ -30,6 +30,48 @@ namespace ast
         vardec_ = std::move(vardec);
     }
 
+    AssignStmt::AssignStmt(const Location& location, std::string name,
+                           exp_ptr value)
+        : Stmt(location)
+        , name_(std::move(name))
+        , value_(std::move(value))
+    {}
+
+    void AssignStmt::accept(Visitor& v)
+    {
+        v.visit(*this);
+    }
+
+    const std::string& AssignStmt::name_get() const
+    {
+        return name_;
+    }
+
+    void AssignStmt::name_set(std::string name)
+    {
+        name_ = std::move(name);
+    }
+
+    Exp& AssignStmt::value_get() const
+    {
+        return *value_;
+    }
+
+    void AssignStmt::value_set(exp_ptr value)
+    {
+        value_ = std::move(value);
+    }
+
+    Dec* AssignStmt::def_get() const
+    {
+        return def_;
+    }
+
+    void AssignStmt::def_set(Dec* def)
+    {
+        def_ = def;
+    }
+
     IfStmt::IfStmt(const Location& location, exp_ptr condition,
                    std::vector<stmt_ptr> then_branch,
                    std::vector<stmt_ptr> else_branch)

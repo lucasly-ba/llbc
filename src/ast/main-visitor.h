@@ -23,6 +23,7 @@ namespace ast
         void visit(IdentExp& e) override;
 
         void visit(VarStmt& e) override;
+        void visit(AssignStmt& e) override;
         void visit(IfStmt& e) override;
         void visit(LoopStmt& e) override;
         void visit(BreakStmt& e) override;

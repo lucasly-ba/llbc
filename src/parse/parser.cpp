@@ -307,6 +307,8 @@ namespace parser
         case TokenKind::ID:
             if (peek_kind() == TokenKind::Enters)
                 return parse_enters_stmt();
+            if (peek_kind() == TokenKind::Eq)
+                return parse_assign_stmt();
             return parse_exp_stmt();
         default:
             return parse_exp_stmt();
@@ -320,6 +322,19 @@ namespace parser
         if (!vardec)
             return nullptr;
         return make_VarStmt(location, std::move(vardec));
+    }
+
+    stmt_ptr Parser::parse_assign_stmt()
+    {
+        Location location = get_location();
+        std::string name = value();
+        walk();
+        walk();
+        exp_ptr value = parse_exp();
+        if (kind() != TokenKind::SemiColon)
+            return fail_stmt("Expected semicolon after assignment");
+        walk();
+        return make_AssignStmt(location, std::move(name), std::move(value));
     }
 
     stmt_ptr Parser::parse_if_stmt()

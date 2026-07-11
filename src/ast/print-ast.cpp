@@ -184,6 +184,13 @@ namespace ast
         ostr_ << e.vardec_get();
     }
 
+    void PrintAst::visit(AssignStmt& e)
+    {
+        ostr_ << e.name_get();
+        print_binding(e.def_get());
+        ostr_ << " = " << e.value_get() << ";\n";
+    }
+
     void PrintAst::visit(IfStmt& e)
     {
         ostr_ << "if " << e.condition_get();

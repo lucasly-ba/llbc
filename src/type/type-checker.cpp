@@ -234,6 +234,24 @@ namespace type
         current_type_ = Type::Int;
     }
 
+    void TypeChecker::visit(AssignStmt& e)
+    {
+        auto* vardec = dynamic_cast<const VarDec*>(e.def_get());
+        if (vardec == nullptr)
+        {
+            emit_error(e.name_get()
+                           + " is not a variable and cannot be assigned to",
+                       e.location_get());
+            return;
+        }
+        e.value_get().accept(*this);
+        if (current_type_ != vardec->type_get().value())
+            emit_error("cannot assign " + to_string(current_type_)
+                           + " to variable " + e.name_get() + " of type "
+                           + to_string(vardec->type_get().value()),
+                       e.location_get());
+    }
+
     void TypeChecker::visit(IfStmt& e)
     {
         e.condition_get().accept(*this);

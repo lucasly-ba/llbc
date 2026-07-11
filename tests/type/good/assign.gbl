@@ -1,0 +1,15 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn f() -> int {
+	var a = 1;
+	a = a + 2;
+	return a;
+}
+
+scene main
+{
+	var s = "hi";
+	s = s + " there";
+	var r = f();
+	r = 5;
+}

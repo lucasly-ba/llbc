@@ -39,6 +39,7 @@ namespace type
         void visit(CallExp& e) override;
         void visit(IdentExp& e) override;
 
+        void visit(AssignStmt& e) override;
         void visit(IfStmt& e) override;
         void visit(ReturnStmt& e) override;
 

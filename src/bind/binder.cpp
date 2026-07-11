@@ -78,6 +78,17 @@ namespace bind
             emit_error("undefined variable: " + e.name_get(), e.location_get());
     }
 
+    void Binder::visit(AssignStmt& e)
+    {
+        if (auto dec = scope_.get_dec(e.name_get()); dec == nullptr)
+            emit_error("undefined variable: " + e.name_get(), e.location_get());
+        else if (dynamic_cast<VarDec*>(dec) == nullptr)
+            emit_error(e.name_get() + " is not a variable", e.location_get());
+        else
+            e.def_set(dec);
+        MainVisitor::visit(e);
+    }
+
     void Binder::visit(LoopStmt& e)
     {
         auto saved_loop = loop_;

@@ -40,6 +40,7 @@ namespace parser
         std::vector<stmt_ptr> parse_body();
         stmt_ptr parse_stmt();
         stmt_ptr parse_var_stmt();
+        stmt_ptr parse_assign_stmt();
         stmt_ptr parse_if_stmt();
         stmt_ptr parse_loop_stmt();
         stmt_ptr parse_break_stmt();
