@@ -34,12 +34,14 @@ namespace bind
         void visit(BreakStmt& e) override;
         void visit(EntersStmt& e) override;
         void visit(StartStmt& e) override;
+        void visit(ReturnStmt& e) override;
 
         void emit_error(const std::string& message, Location loc);
 
     private:
         bool has_main_ = false;
         LoopStmt* loop_ = nullptr;
+        FuncDec* func_ = nullptr;
         Scope scope_;
         std::vector<BindError> errors_;
     };

@@ -1,5 +1,7 @@
 #include <binder.h>
 #include <set>
+
+#include "stmt.h"
 namespace bind
 {
 
@@ -11,7 +13,7 @@ namespace bind
         for (auto& dec : program.decs_get())
         {
             if (!names.insert(dec->name_get()).second)
-                emit_error("Declaration redeclaration at top-level: "
+                emit_error("declaration redeclaration at top-level: "
                                + dec->name_get(),
                            dec->location_get());
 
@@ -23,9 +25,9 @@ namespace bind
         for (auto& dec : program.decs_get())
             dec->accept(*this);
         if (!has_main_)
-            emit_error("Main scene not found", Location{ 0, 0 });
+            emit_error("main scene not found", Location{ 0, 0 });
         if (!has_player)
-            emit_error("No player declared", Location{ 0, 0 });
+            emit_error("no player declared", Location{ 0, 0 });
     }
 
     void Binder::visit(VarDec& e)
@@ -33,16 +35,18 @@ namespace bind
         if (scope_.get_dec_in_last_scope(e.name_get()) == nullptr)
             scope_.put_dec(e.name_get(), &e);
         else
-            emit_error("Variable redeclaration: " + e.name_get(),
+            emit_error("variable redeclaration: " + e.name_get(),
                        e.location_get());
         MainVisitor::visit(e);
     }
 
     void Binder::visit(FuncDec& e)
     {
+        func_ = &e;
         scope_.scope_begin();
         MainVisitor::visit(e);
         scope_.scope_end();
+        func_ = nullptr;
     }
 
     void Binder::visit(SceneDec& e)
@@ -57,10 +61,12 @@ namespace bind
     void Binder::visit(CallExp& e)
     {
         if (auto dec = scope_.get_dec_in_first_scope(e.name_get());
-            dec != nullptr)
-            e.def_set(dec);
+            dec == nullptr)
+            emit_error("undefined function: " + e.name_get(), e.location_get());
+        else if (dynamic_cast<FuncDec*>(dec) == nullptr)
+            emit_error(e.name_get() + " is not a function", e.location_get());
         else
-            emit_error("Undefined function: " + e.name_get(), e.location_get());
+            e.def_set(dec);
         MainVisitor::visit(e);
     }
 
@@ -69,7 +75,7 @@ namespace bind
         if (auto dec = scope_.get_dec(e.name_get()); dec != nullptr)
             e.def_set(dec);
         else
-            emit_error("Undefined variable: " + e.name_get(), e.location_get());
+            emit_error("undefined variable: " + e.name_get(), e.location_get());
     }
 
     void Binder::visit(LoopStmt& e)
@@ -85,7 +91,7 @@ namespace bind
     void Binder::visit(BreakStmt& e)
     {
         if (loop_ == nullptr)
-            emit_error("Break outside loop", e.location_get());
+            emit_error("break outside loop", e.location_get());
     }
 
     void Binder::visit(EntersStmt& e)
@@ -94,13 +100,13 @@ namespace bind
             dec != nullptr)
             e.player_def_set(dec);
         else
-            emit_error("Undefined player: " + e.player_name_get(),
+            emit_error("undefined player: " + e.player_name_get(),
                        e.location_get());
         if (auto dec = scope_.get_dec_in_first_scope(e.scene_name_get());
             dec != nullptr)
             e.scene_def_set(dec);
         else
-            emit_error("Undefined scene: " + e.scene_name_get(),
+            emit_error("undefined scene: " + e.scene_name_get(),
                        e.location_get());
     }
 
@@ -108,15 +114,22 @@ namespace bind
     {
         if (e.scene_name_get() == "main")
         {
-            emit_error("Cannot manually start main scene", e.location_get());
+            emit_error("cannot manually start main scene", e.location_get());
             return;
         }
         if (auto dec = scope_.get_dec_in_first_scope(e.scene_name_get());
             dec != nullptr)
             e.scene_def_set(dec);
         else
-            emit_error("Undefined scene: " + e.scene_name_get(),
+            emit_error("undefined scene: " + e.scene_name_get(),
                        e.location_get());
+    }
+
+    void Binder::visit(ReturnStmt& e)
+    {
+        if (func_ == nullptr)
+            emit_error("return outside function", e.location_get());
+        MainVisitor::visit(e);
     }
 
     const std::vector<BindError>& Binder::get_errors() const
