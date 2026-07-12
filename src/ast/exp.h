@@ -48,18 +48,25 @@ namespace ast
         exp_ptr right_;
     };
 
-    class IntExp : public Exp
+    class IntBaseExp : public Exp
+    {
+    public:
+        int value_get() const;
+        void value_set(int value);
+
+    protected:
+        IntBaseExp(const Location& location, int value);
+
+    private:
+        int value_;
+    };
+
+    class IntExp : public IntBaseExp
     {
     public:
         IntExp(const Location& location, int value);
 
         void accept(VisitorBase& v) override;
-
-        int value_get() const;
-        void value_set(int value);
-
-    private:
-        int value_;
     };
 
     class FloatExp : public Exp
@@ -104,7 +111,7 @@ namespace ast
         bool value_;
     };
 
-    class DollarsExp : public IntExp
+    class DollarsExp : public IntBaseExp
     {
     public:
         DollarsExp(const Location& location, int value);
@@ -112,7 +119,7 @@ namespace ast
         void accept(VisitorBase& v) override;
     };
 
-    class ChanceExp : public IntExp
+    class ChanceExp : public IntBaseExp
     {
     public:
         ChanceExp(const Location& location, int value);
@@ -120,7 +127,7 @@ namespace ast
         void accept(VisitorBase& v) override;
     };
 
-    class StreakExp : public IntExp
+    class StreakExp : public IntBaseExp
     {
     public:
         StreakExp(const Location& location, int value);

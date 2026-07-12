@@ -14,6 +14,7 @@ namespace ast
 
     class Exp;
     class OpExp;
+    class IntBaseExp;
     class IntExp;
     class FloatExp;
     class StringExp;

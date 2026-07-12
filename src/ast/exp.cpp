@@ -82,24 +82,28 @@ namespace ast
         right_ = std::move(right);
     }
 
-    IntExp::IntExp(const Location& location, int value)
+    IntBaseExp::IntBaseExp(const Location& location, int value)
         : Exp(location)
         , value_(value)
+    {}
+
+    int IntBaseExp::value_get() const
+    {
+        return value_;
+    }
+
+    void IntBaseExp::value_set(int value)
+    {
+        value_ = value;
+    }
+
+    IntExp::IntExp(const Location& location, int value)
+        : IntBaseExp(location, value)
     {}
 
     void IntExp::accept(VisitorBase& v)
     {
         v.visit(*this);
-    }
-
-    int IntExp::value_get() const
-    {
-        return value_;
-    }
-
-    void IntExp::value_set(int value)
-    {
-        value_ = value;
     }
 
     FloatExp::FloatExp(const Location& location, float value)
@@ -163,7 +167,7 @@ namespace ast
     }
 
     DollarsExp::DollarsExp(const Location& location, int value)
-        : IntExp(location, value)
+        : IntBaseExp(location, value)
     {}
 
     void DollarsExp::accept(VisitorBase& v)
@@ -172,7 +176,7 @@ namespace ast
     }
 
     ChanceExp::ChanceExp(const Location& location, int value)
-        : IntExp(location, value)
+        : IntBaseExp(location, value)
     {}
 
     void ChanceExp::accept(VisitorBase& v)
@@ -181,7 +185,7 @@ namespace ast
     }
 
     StreakExp::StreakExp(const Location& location, int value)
-        : IntExp(location, value)
+        : IntBaseExp(location, value)
     {}
 
     void StreakExp::accept(VisitorBase& v)
