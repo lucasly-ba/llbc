@@ -1,15 +1,14 @@
-#include <all.h>
-#include <main-visitor.h>
+#include <ast/ast-visitor.h>
 
 namespace ast
 {
-    void MainVisitor::visit(VarDec& e)
+    void Visitor::visit(VarDec& e)
     {
         if (auto init = e.init_get())
             init->accept(*this);
     }
 
-    void MainVisitor::visit(FuncDec& e)
+    void Visitor::visit(FuncDec& e)
     {
         for (auto& arg : e.args_get())
             arg->accept(*this);
@@ -17,7 +16,7 @@ namespace ast
             stmt->accept(*this);
     }
 
-    void MainVisitor::visit(SceneDec& e)
+    void Visitor::visit(SceneDec& e)
     {
         if (auto precond = e.precondition_get())
             precond->accept(*this);
@@ -25,70 +24,70 @@ namespace ast
             stmt->accept(*this);
     }
 
-    void MainVisitor::visit(PlayerDec& e)
+    void Visitor::visit(PlayerDec& e)
     {
         e.dollar_get().accept(*this);
         e.chance_get().accept(*this);
         e.streak_get().accept(*this);
     }
 
-    void MainVisitor::visit(OpExp& e)
+    void Visitor::visit(OpExp& e)
     {
         e.left_get().accept(*this);
         e.right_get().accept(*this);
     }
 
-    void MainVisitor::visit(IntExp& e)
+    void Visitor::visit(IntExp& e)
     {
         (void)e;
     }
 
-    void MainVisitor::visit(FloatExp& e)
+    void Visitor::visit(FloatExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(StringExp& e)
+    void Visitor::visit(StringExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(BoolExp& e)
+    void Visitor::visit(BoolExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(DollarsExp& e)
+    void Visitor::visit(DollarsExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(ChanceExp& e)
+    void Visitor::visit(ChanceExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(StreakExp& e)
+    void Visitor::visit(StreakExp& e)
     {
         (void)e;
     }
 
-    void MainVisitor::visit(CallExp& e)
+    void Visitor::visit(CallExp& e)
     {
         for (auto& arg : e.args_get())
             arg->accept(*this);
     }
 
-    void MainVisitor::visit(IdentExp& e)
+    void Visitor::visit(IdentExp& e)
     {
         (void)e;
     }
-    void MainVisitor::visit(VarStmt& e)
+    void Visitor::visit(VarStmt& e)
     {
         e.vardec_get().accept(*this);
     }
 
-    void MainVisitor::visit(AssignStmt& e)
+    void Visitor::visit(AssignStmt& e)
     {
         e.value_get().accept(*this);
     }
 
-    void MainVisitor::visit(IfStmt& e)
+    void Visitor::visit(IfStmt& e)
     {
         e.condition_get().accept(*this);
         for (auto& stmt : e.then_branch_get())
@@ -97,34 +96,34 @@ namespace ast
             stmt->accept(*this);
     }
 
-    void MainVisitor::visit(LoopStmt& e)
+    void Visitor::visit(LoopStmt& e)
     {
         for (auto& stmt : e.body_get())
             stmt->accept(*this);
     }
 
-    void MainVisitor::visit(BreakStmt& e)
+    void Visitor::visit(BreakStmt& e)
     {
         (void)e;
     }
 
-    void MainVisitor::visit(ReturnStmt& e)
+    void Visitor::visit(ReturnStmt& e)
     {
         if (auto value = e.value_get())
             value->accept(*this);
     }
 
-    void MainVisitor::visit(EntersStmt& e)
+    void Visitor::visit(EntersStmt& e)
     {
         (void)e;
     }
 
-    void MainVisitor::visit(StartStmt& e)
+    void Visitor::visit(StartStmt& e)
     {
         (void)e;
     }
 
-    void MainVisitor::visit(ExpStmt& e)
+    void Visitor::visit(ExpStmt& e)
     {
         e.exp_get().accept(*this);
     }

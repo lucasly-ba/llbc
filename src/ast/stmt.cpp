@@ -1,8 +1,8 @@
-#include <dec.h>
-#include <exp.h>
-#include <stmt.h>
-#include <type.h>
-#include <visitor.h>
+#include <ast/dec.h>
+#include <ast/exp.h>
+#include <ast/stmt.h>
+#include <ast/type.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -15,7 +15,7 @@ namespace ast
         , vardec_(std::move(vardec))
     {}
 
-    void VarStmt::accept(Visitor& v)
+    void VarStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -37,7 +37,7 @@ namespace ast
         , value_(std::move(value))
     {}
 
-    void AssignStmt::accept(Visitor& v)
+    void AssignStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -89,7 +89,7 @@ namespace ast
         , else_branch_()
     {}
 
-    void IfStmt::accept(Visitor& v)
+    void IfStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -139,7 +139,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void LoopStmt::accept(Visitor& v)
+    void LoopStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -158,7 +158,7 @@ namespace ast
         : Stmt(location)
     {}
 
-    void BreakStmt::accept(Visitor& v)
+    void BreakStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -173,7 +173,7 @@ namespace ast
         , value_(nullptr)
     {}
 
-    void ReturnStmt::accept(Visitor& v)
+    void ReturnStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -200,7 +200,7 @@ namespace ast
         , scene_name_(std::move(scene_name))
     {}
 
-    void EntersStmt::accept(Visitor& v)
+    void EntersStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -250,7 +250,7 @@ namespace ast
         , scene_name_(std::move(scene_name))
     {}
 
-    void StartStmt::accept(Visitor& v)
+    void StartStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -280,7 +280,7 @@ namespace ast
         , exp_(std::move(exp))
     {}
 
-    void ExpStmt::accept(Visitor& v)
+    void ExpStmt::accept(VisitorBase& v)
     {
         v.visit(*this);
     }

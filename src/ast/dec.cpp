@@ -1,8 +1,8 @@
-#include <dec.h>
-#include <exp.h>
-#include <stmt.h>
-#include <type.h>
-#include <visitor.h>
+#include <ast/dec.h>
+#include <ast/exp.h>
+#include <ast/stmt.h>
+#include <ast/type.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -34,7 +34,7 @@ namespace ast
         , init_(std::move(init))
     {}
 
-    void VarDec::accept(Visitor& v)
+    void VarDec::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -73,7 +73,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void FuncDec::accept(Visitor& v)
+    void FuncDec::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -132,7 +132,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void SceneDec::accept(Visitor& v)
+    void SceneDec::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -185,7 +185,7 @@ namespace ast
         , streak_(std::move(streak))
     {}
 
-    void PlayerDec::accept(Visitor& v)
+    void PlayerDec::accept(VisitorBase& v)
     {
         v.visit(*this);
     }

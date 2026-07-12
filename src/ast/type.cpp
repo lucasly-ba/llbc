@@ -1,5 +1,5 @@
 #include <optional>
-#include <type.h>
+#include <ast/type.h>
 
 namespace ast
 {

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <main-visitor.h>
+#include <ast/ast-visitor.h>
 
 namespace ast
 {
-    class PrintAst : public MainVisitor
+    class PrintAst : public Visitor
     {
     public:
         PrintAst(std::ostream& ostr);

@@ -1,7 +1,7 @@
-#include <dec.h>
-#include <exp.h>
-#include <print-ast.h>
-#include <stmt.h>
+#include <ast/dec.h>
+#include <ast/exp.h>
+#include <ast/print-ast.h>
+#include <ast/stmt.h>
 
 namespace ast
 {

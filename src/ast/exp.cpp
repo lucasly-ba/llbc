@@ -1,5 +1,5 @@
-#include <exp.h>
-#include <visitor.h>
+#include <ast/exp.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
@@ -15,7 +15,7 @@ namespace ast
         , right_(std::move(right))
     {}
 
-    void OpExp::accept(Visitor& v)
+    void OpExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -87,7 +87,7 @@ namespace ast
         , value_(value)
     {}
 
-    void IntExp::accept(Visitor& v)
+    void IntExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -107,7 +107,7 @@ namespace ast
         , value_(value)
     {}
 
-    void FloatExp::accept(Visitor& v)
+    void FloatExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -127,7 +127,7 @@ namespace ast
         , value_(std::move(value))
     {}
 
-    void StringExp::accept(Visitor& v)
+    void StringExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -147,7 +147,7 @@ namespace ast
         , value_(value)
     {}
 
-    void BoolExp::accept(Visitor& v)
+    void BoolExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -166,7 +166,7 @@ namespace ast
         : IntExp(location, value)
     {}
 
-    void DollarsExp::accept(Visitor& v)
+    void DollarsExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -175,7 +175,7 @@ namespace ast
         : IntExp(location, value)
     {}
 
-    void ChanceExp::accept(Visitor& v)
+    void ChanceExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -184,7 +184,7 @@ namespace ast
         : IntExp(location, value)
     {}
 
-    void StreakExp::accept(Visitor& v)
+    void StreakExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -196,7 +196,7 @@ namespace ast
         , args_(std::move(args))
     {}
 
-    void CallExp::accept(Visitor& v)
+    void CallExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }
@@ -241,7 +241,7 @@ namespace ast
         , name_(std::move(name))
     {}
 
-    void IdentExp::accept(Visitor& v)
+    void IdentExp::accept(VisitorBase& v)
     {
         v.visit(*this);
     }

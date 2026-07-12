@@ -1,6 +1,6 @@
 #pragma once
 #include <cstddef>
-#include <fwd.h>
+#include <ast/fwd.h>
 #include <vector>
 
 namespace ast
@@ -21,7 +21,7 @@ namespace ast
         Ast& operator=(Ast&&) = delete;
 
         virtual ~Ast() = default;
-        virtual void accept(Visitor& v) = 0;
+        virtual void accept(VisitorBase& v) = 0;
 
         const Location& location_get() const;
         void location_set(const Location&);

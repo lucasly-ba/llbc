@@ -1,8 +1,8 @@
 #pragma once
-#include <ast.h>
-#include <dec.h>
-#include <exp.h>
-#include <fwd.h>
-#include <stmt.h>
-#include <type.h>
-#include <visitor.h>
+#include <ast/ast.h>
+#include <ast/dec.h>
+#include <ast/exp.h>
+#include <ast/fwd.h>
+#include <ast/stmt.h>
+#include <ast/type.h>
+#include <ast/visitor.h>

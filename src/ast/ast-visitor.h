@@ -1,9 +1,9 @@
 #pragma once
-#include <visitor.h>
+#include <ast/visitor.h>
 
 namespace ast
 {
-    class MainVisitor : public Visitor
+    class Visitor : public VisitorBase
     {
     public:
         void visit(VarDec& e) override;

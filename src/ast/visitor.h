@@ -1,37 +1,37 @@
 #pragma once
-#include <all.h>
+#include <ast/all.h>
 
 namespace ast
 {
-    class Visitor
+    class VisitorBase
     {
     public:
-        virtual ~Visitor() = default;
+        virtual ~VisitorBase() = default;
 
-        virtual void visit(VarDec& node) = 0;
-        virtual void visit(FuncDec& node) = 0;
-        virtual void visit(SceneDec& node) = 0;
-        virtual void visit(PlayerDec& node) = 0;
+        virtual void visit(VarDec& e) = 0;
+        virtual void visit(FuncDec& e) = 0;
+        virtual void visit(SceneDec& e) = 0;
+        virtual void visit(PlayerDec& e) = 0;
 
-        virtual void visit(OpExp& node) = 0;
-        virtual void visit(IntExp& node) = 0;
-        virtual void visit(FloatExp& node) = 0;
-        virtual void visit(StringExp& node) = 0;
-        virtual void visit(BoolExp& node) = 0;
-        virtual void visit(DollarsExp& node) = 0;
-        virtual void visit(ChanceExp& node) = 0;
-        virtual void visit(StreakExp& node) = 0;
-        virtual void visit(CallExp& node) = 0;
-        virtual void visit(IdentExp& node) = 0;
+        virtual void visit(OpExp& e) = 0;
+        virtual void visit(IntExp& e) = 0;
+        virtual void visit(FloatExp& e) = 0;
+        virtual void visit(StringExp& e) = 0;
+        virtual void visit(BoolExp& e) = 0;
+        virtual void visit(DollarsExp& e) = 0;
+        virtual void visit(ChanceExp& e) = 0;
+        virtual void visit(StreakExp& e) = 0;
+        virtual void visit(CallExp& e) = 0;
+        virtual void visit(IdentExp& e) = 0;
 
-        virtual void visit(VarStmt& node) = 0;
-        virtual void visit(AssignStmt& node) = 0;
-        virtual void visit(IfStmt& node) = 0;
-        virtual void visit(LoopStmt& node) = 0;
-        virtual void visit(BreakStmt& node) = 0;
-        virtual void visit(ReturnStmt& node) = 0;
-        virtual void visit(EntersStmt& node) = 0;
-        virtual void visit(StartStmt& node) = 0;
-        virtual void visit(ExpStmt& node) = 0;
+        virtual void visit(VarStmt& e) = 0;
+        virtual void visit(AssignStmt& e) = 0;
+        virtual void visit(IfStmt& e) = 0;
+        virtual void visit(LoopStmt& e) = 0;
+        virtual void visit(BreakStmt& e) = 0;
+        virtual void visit(ReturnStmt& e) = 0;
+        virtual void visit(EntersStmt& e) = 0;
+        virtual void visit(StartStmt& e) = 0;
+        virtual void visit(ExpStmt& e) = 0;
     };
 } // namespace ast
