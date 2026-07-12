@@ -1,10 +1,10 @@
-#include <factory.h>
+#include <parse/factory.h>
 #include <optional>
-#include <parser.h>
+#include <parse/parser.h>
 #include <set>
 #include <utility>
 
-#include "type.h"
+#include <ast/type.h>
 
 namespace parser
 {

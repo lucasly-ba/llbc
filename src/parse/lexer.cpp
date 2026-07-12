@@ -1,8 +1,8 @@
 #include <cctype>
 #include <format>
 #include <iostream>
-#include <lexer.h>
-#include <token.h>
+#include <parse/lexer.h>
+#include <parse/token.h>
 
 namespace parser
 {

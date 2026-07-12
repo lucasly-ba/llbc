@@ -1,8 +1,8 @@
 #pragma once
 
-#include <all.h>
+#include <ast/all.h>
 #include <set>
-#include <token.h>
+#include <parse/token.h>
 #include <vector>
 
 namespace parser
