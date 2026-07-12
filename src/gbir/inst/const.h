@@ -15,16 +15,24 @@ namespace gbir
         GbirValue result_;
     };
 
-    class ConstIntInst : public ConstInst
+    class ConstIntBaseInst : public ConstInst
+    {
+    public:
+        int raw_value_get() const;
+        void raw_value_set(int raw_value);
+
+    protected:
+        ConstIntBaseInst(int raw_value, GbirValue result);
+
+    private:
+        int raw_value_;
+    };
+
+    class ConstIntInst : public ConstIntBaseInst
     {
     public:
         ConstIntInst(int raw_value, GbirValue result);
         void accept(GbirVisitorBase& v) override;
-        int raw_value_get() const;
-        void raw_value_set(int raw_value);
-
-    private:
-        int raw_value_;
     };
 
     class ConstFloatInst : public ConstInst
@@ -63,21 +71,21 @@ namespace gbir
         bool raw_value_;
     };
 
-    class ConstDollarsInst : public ConstIntInst
+    class ConstDollarsInst : public ConstIntBaseInst
     {
     public:
         ConstDollarsInst(int raw_value, GbirValue result);
         void accept(GbirVisitorBase& v) override;
     };
 
-    class ConstChanceInst : public ConstIntInst
+    class ConstChanceInst : public ConstIntBaseInst
     {
     public:
         ConstChanceInst(int raw_value, GbirValue result);
         void accept(GbirVisitorBase& v) override;
     };
 
-    class ConstStreakInst : public ConstIntInst
+    class ConstStreakInst : public ConstIntBaseInst
     {
     public:
         ConstStreakInst(int raw_value, GbirValue result);

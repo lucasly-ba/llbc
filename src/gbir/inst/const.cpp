@@ -16,24 +16,28 @@ namespace gbir
         result_ = result;
     }
 
-    ConstIntInst::ConstIntInst(int raw_value, GbirValue result)
+    ConstIntBaseInst::ConstIntBaseInst(int raw_value, GbirValue result)
         : ConstInst(result)
         , raw_value_(raw_value)
+    {}
+
+    int ConstIntBaseInst::raw_value_get() const
+    {
+        return raw_value_;
+    }
+
+    void ConstIntBaseInst::raw_value_set(int raw_value)
+    {
+        raw_value_ = raw_value;
+    }
+
+    ConstIntInst::ConstIntInst(int raw_value, GbirValue result)
+        : ConstIntBaseInst(raw_value, result)
     {}
 
     void ConstIntInst::accept(GbirVisitorBase& v)
     {
         v.visit(*this);
-    }
-
-    int ConstIntInst::raw_value_get() const
-    {
-        return raw_value_;
-    }
-
-    void ConstIntInst::raw_value_set(int raw_value)
-    {
-        raw_value_ = raw_value;
     }
 
     ConstFloatInst::ConstFloatInst(float raw_value, GbirValue result)
@@ -97,7 +101,7 @@ namespace gbir
     }
 
     ConstDollarsInst::ConstDollarsInst(int raw_value, GbirValue result)
-        : ConstIntInst(raw_value, result)
+        : ConstIntBaseInst(raw_value, result)
     {}
 
     void ConstDollarsInst::accept(GbirVisitorBase& v)
@@ -106,7 +110,7 @@ namespace gbir
     }
 
     ConstChanceInst::ConstChanceInst(int raw_value, GbirValue result)
-        : ConstIntInst(raw_value, result)
+        : ConstIntBaseInst(raw_value, result)
     {}
 
     void ConstChanceInst::accept(GbirVisitorBase& v)
@@ -115,7 +119,7 @@ namespace gbir
     }
 
     ConstStreakInst::ConstStreakInst(int raw_value, GbirValue result)
-        : ConstIntInst(raw_value, result)
+        : ConstIntBaseInst(raw_value, result)
     {}
 
     void ConstStreakInst::accept(GbirVisitorBase& v)

@@ -7,6 +7,7 @@ namespace gbir
     class GbirInst;
 
     class ConstInst;
+    class ConstIntBaseInst;
     class ConstIntInst;
     class ConstFloatInst;
     class ConstStringInst;
