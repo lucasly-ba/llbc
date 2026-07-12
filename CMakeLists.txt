@@ -44,7 +44,6 @@ set(SOURCES
     src/gbir/function.cpp
     src/gbir/basic-block.cpp
     src/gbir/gbir-visitor.cpp
-    src/gbir/inst/inst.cpp
     src/gbir/inst/const.cpp
     src/gbir/inst/binop.cpp
     src/gbir/inst/call.cpp
