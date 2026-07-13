@@ -4,6 +4,7 @@
 #include <gbir/inst/binop.h>
 #include <gbir/inst/call.h>
 #include <gbir/inst/const.h>
+#include <gbir/inst/enters.h>
 #include <gbir/inst/inst.h>
 #include <gbir/inst/mem.h>
 #include <gbir/inst/phi.h>
