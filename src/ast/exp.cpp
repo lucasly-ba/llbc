@@ -15,7 +15,7 @@ namespace ast
         , right_(std::move(right))
     {}
 
-    void OpExp::accept(VisitorBase& v)
+    void OpExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -101,7 +101,7 @@ namespace ast
         : IntBaseExp(location, value)
     {}
 
-    void IntExp::accept(VisitorBase& v)
+    void IntExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -111,7 +111,7 @@ namespace ast
         , value_(value)
     {}
 
-    void FloatExp::accept(VisitorBase& v)
+    void FloatExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -131,7 +131,7 @@ namespace ast
         , value_(std::move(value))
     {}
 
-    void StringExp::accept(VisitorBase& v)
+    void StringExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -151,7 +151,7 @@ namespace ast
         , value_(value)
     {}
 
-    void BoolExp::accept(VisitorBase& v)
+    void BoolExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -170,7 +170,7 @@ namespace ast
         : IntBaseExp(location, value)
     {}
 
-    void DollarsExp::accept(VisitorBase& v)
+    void DollarsExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -179,7 +179,7 @@ namespace ast
         : IntBaseExp(location, value)
     {}
 
-    void ChanceExp::accept(VisitorBase& v)
+    void ChanceExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -188,7 +188,7 @@ namespace ast
         : IntBaseExp(location, value)
     {}
 
-    void StreakExp::accept(VisitorBase& v)
+    void StreakExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -200,7 +200,7 @@ namespace ast
         , args_(std::move(args))
     {}
 
-    void CallExp::accept(VisitorBase& v)
+    void CallExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -245,7 +245,7 @@ namespace ast
         , name_(std::move(name))
     {}
 
-    void IdentExp::accept(VisitorBase& v)
+    void IdentExp::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }

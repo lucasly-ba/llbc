@@ -4,7 +4,7 @@
 
 namespace ast
 {
-    class PrintAst : public Visitor
+    class PrintAst : public AstVisitor
     {
     public:
         PrintAst(std::ostream& ostr);

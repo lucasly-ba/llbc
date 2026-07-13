@@ -14,7 +14,7 @@ namespace bind
         Location location;
     };
 
-    class Binder : public Visitor
+    class Binder : public AstVisitor
     {
     public:
         Binder() = default;

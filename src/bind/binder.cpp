@@ -37,14 +37,14 @@ namespace bind
         else
             emit_error("variable redeclaration: " + e.name_get(),
                        e.location_get());
-        Visitor::visit(e);
+        AstVisitor::visit(e);
     }
 
     void Binder::visit(FuncDec& e)
     {
         func_ = &e;
         scope_.scope_begin();
-        Visitor::visit(e);
+        AstVisitor::visit(e);
         scope_.scope_end();
         func_ = nullptr;
     }
@@ -54,7 +54,7 @@ namespace bind
         if (e.name_get() == "main")
             has_main_ = true;
         scope_.scope_begin();
-        Visitor::visit(e);
+        AstVisitor::visit(e);
         scope_.scope_end();
     }
 
@@ -67,7 +67,7 @@ namespace bind
             emit_error(e.name_get() + " is not a function", e.location_get());
         else
             e.def_set(dec);
-        Visitor::visit(e);
+        AstVisitor::visit(e);
     }
 
     void Binder::visit(IdentExp& e)
@@ -86,7 +86,7 @@ namespace bind
             emit_error(e.name_get() + " is not a variable", e.location_get());
         else
             e.def_set(dec);
-        Visitor::visit(e);
+        AstVisitor::visit(e);
     }
 
     void Binder::visit(LoopStmt& e)
@@ -94,7 +94,7 @@ namespace bind
         auto saved_loop = loop_;
         loop_ = &e;
         scope_.scope_begin();
-        Visitor::visit(e);
+        AstVisitor::visit(e);
         scope_.scope_end();
         loop_ = saved_loop;
     }
@@ -140,7 +140,7 @@ namespace bind
     {
         if (func_ == nullptr)
             emit_error("return outside function", e.location_get());
-        Visitor::visit(e);
+        AstVisitor::visit(e);
     }
 
     const std::vector<BindError>& Binder::get_errors() const

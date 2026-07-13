@@ -13,7 +13,7 @@ namespace type
         Location location;
     };
 
-    class TypeChecker : public Visitor
+    class TypeChecker : public AstVisitor
     {
     public:
         TypeChecker() = default;

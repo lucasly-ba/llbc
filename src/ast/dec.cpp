@@ -34,7 +34,7 @@ namespace ast
         , init_(std::move(init))
     {}
 
-    void VarDec::accept(VisitorBase& v)
+    void VarDec::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -73,7 +73,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void FuncDec::accept(VisitorBase& v)
+    void FuncDec::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -132,7 +132,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void SceneDec::accept(VisitorBase& v)
+    void SceneDec::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -185,7 +185,7 @@ namespace ast
         , streak_(std::move(streak))
     {}
 
-    void PlayerDec::accept(VisitorBase& v)
+    void PlayerDec::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }

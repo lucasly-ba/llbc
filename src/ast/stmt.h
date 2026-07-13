@@ -16,7 +16,7 @@ namespace ast
     public:
         VarStmt(const Location& location, std::unique_ptr<VarDec> vardec);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         VarDec& vardec_get() const;
         void vardec_set(std::unique_ptr<VarDec> vardec);
@@ -30,7 +30,7 @@ namespace ast
     public:
         AssignStmt(const Location& location, std::string name, exp_ptr value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& name_get() const;
         void name_set(std::string name);
@@ -57,7 +57,7 @@ namespace ast
         IfStmt(const Location& location, exp_ptr condition,
                std::vector<stmt_ptr> then_branch);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         Exp& condition_get() const;
         void condition_set(exp_ptr condition);
@@ -81,7 +81,7 @@ namespace ast
     public:
         LoopStmt(const Location& location, std::vector<stmt_ptr> body);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::vector<stmt_ptr>& body_get() const;
         void body_set(std::vector<stmt_ptr> body);
@@ -95,7 +95,7 @@ namespace ast
     public:
         explicit BreakStmt(const Location& location);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
     };
 
     class ReturnStmt : public Stmt
@@ -104,7 +104,7 @@ namespace ast
         ReturnStmt(const Location& location, exp_ptr value);
         ReturnStmt(const Location& location);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         Exp* value_get() const;
         void value_set(exp_ptr value);
@@ -121,7 +121,7 @@ namespace ast
         EntersStmt(const Location& location, std::string player_name,
                    std::string scene_name);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& player_name_get() const;
         void player_name_set(std::string name);
@@ -147,7 +147,7 @@ namespace ast
     public:
         StartStmt(const Location& location, std::string scene_name);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& scene_name_get() const;
         void scene_name_set(std::string name);
@@ -165,7 +165,7 @@ namespace ast
     public:
         ExpStmt(const Location& location, exp_ptr exp);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         Exp& exp_get() const;
         void exp_set(exp_ptr exp);

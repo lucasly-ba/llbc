@@ -3,10 +3,10 @@
 
 namespace ast
 {
-    class VisitorBase
+    class AstVisitorBase
     {
     public:
-        virtual ~VisitorBase() = default;
+        virtual ~AstVisitorBase() = default;
 
         virtual void visit(VarDec& e) = 0;
         virtual void visit(FuncDec& e) = 0;

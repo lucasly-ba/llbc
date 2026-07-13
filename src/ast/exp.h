@@ -31,7 +31,7 @@ namespace ast
         OpExp(const Location& location, exp_ptr left, Oper oper, exp_ptr right);
         std::string to_string(Oper type);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         Exp& left_get() const;
         void left_set(exp_ptr left);
@@ -66,7 +66,7 @@ namespace ast
     public:
         IntExp(const Location& location, int value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
     };
 
     class FloatExp : public Exp
@@ -74,7 +74,7 @@ namespace ast
     public:
         FloatExp(const Location& location, float value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         float value_get() const;
         void value_set(float value);
@@ -88,7 +88,7 @@ namespace ast
     public:
         StringExp(const Location& location, std::string value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& value_get() const;
         void value_set(std::string value);
@@ -102,7 +102,7 @@ namespace ast
     public:
         BoolExp(const Location& location, bool value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         bool value_get() const;
         void value_set(bool value);
@@ -116,7 +116,7 @@ namespace ast
     public:
         DollarsExp(const Location& location, int value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
     };
 
     class ChanceExp : public IntBaseExp
@@ -124,7 +124,7 @@ namespace ast
     public:
         ChanceExp(const Location& location, int value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
     };
 
     class StreakExp : public IntBaseExp
@@ -132,7 +132,7 @@ namespace ast
     public:
         StreakExp(const Location& location, int value);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
     };
 
     class CallExp : public Exp
@@ -141,7 +141,7 @@ namespace ast
         CallExp(const Location& location, std::string name,
                 std::vector<exp_ptr> args);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& name_get() const;
         void name_set(std::string name);
@@ -164,7 +164,7 @@ namespace ast
     public:
         IdentExp(const Location& location, std::string name);
 
-        void accept(VisitorBase& v) override;
+        void accept(AstVisitorBase& v) override;
 
         const std::string& name_get() const;
         void name_set(std::string name);

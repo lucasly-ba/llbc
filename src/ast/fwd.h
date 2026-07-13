@@ -36,7 +36,7 @@ namespace ast
     class StartStmt;
     class ExpStmt;
 
-    class VisitorBase;
+    class AstVisitorBase;
 
     using dec_ptr = std::unique_ptr<Dec>;
     using exp_ptr = std::unique_ptr<Exp>;

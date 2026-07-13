@@ -15,7 +15,7 @@ namespace ast
         , vardec_(std::move(vardec))
     {}
 
-    void VarStmt::accept(VisitorBase& v)
+    void VarStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -37,7 +37,7 @@ namespace ast
         , value_(std::move(value))
     {}
 
-    void AssignStmt::accept(VisitorBase& v)
+    void AssignStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -89,7 +89,7 @@ namespace ast
         , else_branch_()
     {}
 
-    void IfStmt::accept(VisitorBase& v)
+    void IfStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -139,7 +139,7 @@ namespace ast
         , body_(std::move(body))
     {}
 
-    void LoopStmt::accept(VisitorBase& v)
+    void LoopStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -158,7 +158,7 @@ namespace ast
         : Stmt(location)
     {}
 
-    void BreakStmt::accept(VisitorBase& v)
+    void BreakStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -173,7 +173,7 @@ namespace ast
         , value_(nullptr)
     {}
 
-    void ReturnStmt::accept(VisitorBase& v)
+    void ReturnStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -200,7 +200,7 @@ namespace ast
         , scene_name_(std::move(scene_name))
     {}
 
-    void EntersStmt::accept(VisitorBase& v)
+    void EntersStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -250,7 +250,7 @@ namespace ast
         , scene_name_(std::move(scene_name))
     {}
 
-    void StartStmt::accept(VisitorBase& v)
+    void StartStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }
@@ -280,7 +280,7 @@ namespace ast
         , exp_(std::move(exp))
     {}
 
-    void ExpStmt::accept(VisitorBase& v)
+    void ExpStmt::accept(AstVisitorBase& v)
     {
         v.visit(*this);
     }

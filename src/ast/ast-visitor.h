@@ -3,7 +3,7 @@
 
 namespace ast
 {
-    class Visitor : public VisitorBase
+    class AstVisitor : public AstVisitorBase
     {
     public:
         void visit(VarDec& e) override;

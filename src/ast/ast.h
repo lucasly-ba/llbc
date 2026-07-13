@@ -21,7 +21,7 @@ namespace ast
         Ast& operator=(Ast&&) = delete;
 
         virtual ~Ast() = default;
-        virtual void accept(VisitorBase& v) = 0;
+        virtual void accept(AstVisitorBase& v) = 0;
 
         const Location& location_get() const;
         void location_set(const Location&);
