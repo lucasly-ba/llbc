@@ -31,9 +31,13 @@ namespace ast
         Exp* init_get() const;
         void init_set(exp_ptr init);
 
+        bool is_top_level_get() const;
+        void is_top_level_set(bool top_level);
+
     private:
         std::optional<Type> type_;
         exp_ptr init_;
+        bool is_top_level_ = false;
     };
 
     class FuncDec : public Dec

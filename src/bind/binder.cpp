@@ -1,7 +1,6 @@
+#include <ast/stmt.h>
 #include <bind/binder.h>
 #include <set>
-
-#include <ast/stmt.h>
 namespace bind
 {
 
@@ -19,7 +18,9 @@ namespace bind
 
             if (dynamic_cast<PlayerDec*>(dec.get()))
                 has_player = true;
-            if (!dynamic_cast<VarDec*>(dec.get()))
+            if (auto v = dynamic_cast<VarDec*>(dec.get()))
+                v->is_top_level_set(true);
+            else
                 scope_.put_dec(dec->name_get(), dec.get());
         }
         for (auto& dec : program.decs_get())

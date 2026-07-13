@@ -64,6 +64,15 @@ namespace ast
         init_ = std::move(init);
     }
 
+    bool VarDec::is_top_level_get() const
+    {
+        return is_top_level_;
+    }
+    void VarDec::is_top_level_set(bool top_level)
+    {
+        is_top_level_ = top_level;
+    }
+
     FuncDec::FuncDec(const Location& location, std::string name,
                      std::vector<std::unique_ptr<VarDec>> args, Type type,
                      std::vector<stmt_ptr> body)
