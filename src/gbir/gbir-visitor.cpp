@@ -74,4 +74,20 @@ namespace gbir
     {
         (void)e;
     }
+    void GbirVisitor::visit(GbirScene& e)
+    {
+        (void)e;
+    }
+    void GbirVisitor::visit(GbirPlayer& e)
+    {
+        (void)e;
+    }
+    void GbirVisitor::visit(GbirFunction& e)
+    {
+        (void)e;
+    }
+    void GbirVisitor::visit(GbirGlobalVar& e)
+    {
+        (void)e;
+    }
 } // namespace gbir

@@ -1,5 +1,5 @@
 #pragma once
-#include <gbir/function.h>
+#include <gbir/top-level.h>
 #include <memory>
 #include <vector>
 

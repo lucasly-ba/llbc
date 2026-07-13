@@ -34,8 +34,12 @@ namespace gbir
     class EnterInst;
     class StartInst;
 
+    class GbirFunction;
+    class GbirGlobalVar;
+    class GbirScene;
+    class GbirPlayer;
+
     class GbirVisitorBase;
     class GbirBasicBlock;
-    class GbirFunction;
     class GbirModule;
 } // namespace gbir

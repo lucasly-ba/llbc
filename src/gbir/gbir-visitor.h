@@ -30,5 +30,10 @@ namespace gbir
 
         void visit(EnterInst& e) override;
         void visit(StartInst& e) override;
+
+        void visit(GbirScene& e) override;
+        void visit(GbirPlayer& e) override;
+        void visit(GbirFunction& e) override;
+        void visit(GbirGlobalVar& e) override;
     };
 } // namespace gbir

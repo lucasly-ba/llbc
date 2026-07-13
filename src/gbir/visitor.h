@@ -32,5 +32,10 @@ namespace gbir
 
         virtual void visit(EnterInst& e) = 0;
         virtual void visit(StartInst& e) = 0;
+
+        virtual void visit(GbirScene& e) = 0;
+        virtual void visit(GbirPlayer& e) = 0;
+        virtual void visit(GbirFunction& e) = 0;
+        virtual void visit(GbirGlobalVar& e) = 0;
     };
 } // namespace gbir
