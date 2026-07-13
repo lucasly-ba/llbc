@@ -1,13 +1,19 @@
-#include <optional>
-#include <type/type-checker.h>
-
 #include <ast/dec.h>
 #include <ast/exp.h>
 #include <ast/stmt.h>
 #include <ast/type.h>
+#include <optional>
+#include <type/type-checker.h>
 
 namespace type
 {
+
+    void TypeChecker::typecheck_program(ast::Program& program)
+    {
+        for (auto& dec : program.decs_get())
+            dec->accept(*this);
+    }
+
     void TypeChecker::visit(VarDec& e)
     {
         if (Exp* init = e.init_get())
@@ -77,7 +83,8 @@ namespace type
             arg->accept(*this);
         for (auto& stmt : e.body_get())
             stmt->accept(*this);
-        if (current_return_type_ != Type::Void && !check_for_return(e.body_get()))
+        if (current_return_type_ != Type::Void
+            && !check_for_return(e.body_get()))
             emit_error("function " + e.name_get() + " must return on all paths",
                        e.location_get());
         current_return_type_ = Type::Void;
@@ -287,12 +294,6 @@ namespace type
                            + " from a function with return type "
                            + to_string(current_return_type_),
                        e.location_get());
-    }
-
-    void TypeChecker::typecheck_program(ast::Program& program)
-    {
-        for (auto& dec : program.decs_get())
-            dec->accept(*this);
     }
 
     const std::vector<TypeError>& TypeChecker::get_errors() const
