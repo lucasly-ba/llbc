@@ -1,0 +1,19 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn count(n: int) ->int
+{
+	loop
+	{
+		if n > 10
+		{
+			break;
+		}
+		n = n + 1;
+	}
+	return n;
+}
+
+scene main
+{
+	var r = count(0);
+}

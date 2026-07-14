@@ -1,0 +1,9 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+var gi: int = 42;
+var gb: bool = true;
+var gs: string = "hi";
+
+scene main
+{
+}

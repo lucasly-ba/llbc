@@ -1,0 +1,30 @@
+sil_player @p { dollars 100, chance 50, streak 0 }
+
+sil @inc(%1 : $int) -> $int {
+bb0:
+  %2 = alloca $int
+  store %1 to %2 : $int
+  %3 = load %2 : $int
+  %4 = const_int 1 : $int
+  %5 = binop add %3, %4 : $int
+  return %5 : $int
+}
+
+sil @twice(%6 : $int) -> $int {
+bb0:
+  %7 = alloca $int
+  store %6 to %7 : $int
+  %8 = load %7 : $int
+  %9 = call @inc(%8) : $int
+  %10 = call @inc(%9) : $int
+  return %10 : $int
+}
+
+sil_scene @main {
+bb0:
+  %11 = alloca $int
+  %12 = const_int 10 : $int
+  %13 = call @twice(%12) : $int
+  store %13 to %11 : $int
+}
+

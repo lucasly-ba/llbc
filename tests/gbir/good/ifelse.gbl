@@ -1,0 +1,18 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn sign(n: int) ->int
+{
+	if n > 0
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+scene main
+{
+	var r = sign(5);
+}

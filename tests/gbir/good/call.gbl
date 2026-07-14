@@ -1,0 +1,16 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn inc(x: int) ->int
+{
+	return x + 1;
+}
+
+fn twice(x: int) ->int
+{
+	return inc(inc(x));
+}
+
+scene main
+{
+	var r = twice(10);
+}

@@ -1,0 +1,13 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+fn compute(x: int, y: int) ->int
+{
+	var a: int = x + y;
+	var b: int = a * 2;
+	return b - 1;
+}
+
+scene main
+{
+	var r = compute(3, 4);
+}
