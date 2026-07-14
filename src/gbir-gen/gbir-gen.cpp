@@ -85,16 +85,28 @@ namespace gbir
 
     void GbirGen::visit(SceneDec& e)
     {
-        auto scene = make_GbirScene(e.name_get(), {});
-        current_blocks_ = &scene->blocks_get();
+        next_value_id_ = 0;
+        map_var_.clear();
 
+        auto scene = make_GbirScene(e.name_get(), {});
+        scene->max_players_set(e.max_players_get());
+
+        if (auto precond = e.precondition_get())
+        {
+            current_blocks_ = &scene->precondition_get();
+            auto pre = make_GbirBasicBlock("pre0", {}, nullptr);
+            current_block_ = pre.get();
+            current_blocks_->push_back(std::move(pre));
+            precond->accept(*this);
+            scene->precondition_result_set(current_value_);
+        }
+
+        current_blocks_ = &scene->blocks_get();
         auto entry = make_GbirBasicBlock(
             "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
         current_block_ = entry.get();
         current_blocks_->push_back(std::move(entry));
 
-        if (auto precond = e.precondition_get())
-            precond->accept(*this);
         for (auto& stmt : e.body_get())
             stmt->accept(*this);
 

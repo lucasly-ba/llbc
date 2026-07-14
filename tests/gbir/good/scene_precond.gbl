@@ -1,0 +1,16 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+scene boss max 2 requires 5 > 3
+{
+	var b: int = 2;
+}
+
+scene lobby max 4
+{
+	var c: int = 1;
+}
+
+scene main
+{
+	var r: int = 1;
+}
