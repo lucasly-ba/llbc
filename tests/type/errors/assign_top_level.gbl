@@ -1,0 +1,8 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+var g: int = 5;
+
+scene main
+{
+	g = 10;
+}
