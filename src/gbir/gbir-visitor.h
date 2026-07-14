@@ -19,7 +19,7 @@ namespace gbir
         void visit(StoreInst& e) override;
 
         void visit(BinopInst& e) override;
-
+        void visit(GlobalAddrInst& e) override;
         void visit(CallInst& e) override;
 
         void visit(CondBranchInst& e) override;

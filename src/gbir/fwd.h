@@ -22,7 +22,7 @@ namespace gbir
     class StoreInst;
 
     class BinopInst;
-
+    class GlobalAddrInst;
     class CallInst;
 
     class CondBranchInst;

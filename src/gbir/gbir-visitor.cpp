@@ -42,6 +42,11 @@ namespace gbir
     {
         (void)e;
     }
+
+    void GbirVisitor::visit(GlobalAddrInst& e)
+    {
+        (void)e;
+    }
     void GbirVisitor::visit(BinopInst& e)
     {
         (void)e;

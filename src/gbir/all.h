@@ -5,6 +5,7 @@
 #include <gbir/inst/call.h>
 #include <gbir/inst/const.h>
 #include <gbir/inst/enters.h>
+#include <gbir/inst/global.h>
 #include <gbir/inst/inst.h>
 #include <gbir/inst/mem.h>
 #include <gbir/inst/phi.h>

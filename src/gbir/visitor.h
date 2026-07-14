@@ -21,7 +21,7 @@ namespace gbir
         virtual void visit(StoreInst& e) = 0;
 
         virtual void visit(BinopInst& e) = 0;
-
+        virtual void visit(GlobalAddrInst& e) = 0;
         virtual void visit(CallInst& e) = 0;
 
         virtual void visit(CondBranchInst& e) = 0;
