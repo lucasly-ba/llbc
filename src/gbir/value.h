@@ -6,6 +6,7 @@ namespace gbir
     class GbirValue
     {
     public:
+        GbirValue() = default;
         GbirValue(int id, ast::Type type);
 
         int id_get() const;
