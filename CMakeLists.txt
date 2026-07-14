@@ -41,9 +41,10 @@ set(SOURCES
     src/type/type-checker.cpp
     src/gbir/value.cpp
     src/gbir/module.cpp
-    src/gbir/function.cpp
+    src/gbir/top-level.cpp
     src/gbir/basic-block.cpp
     src/gbir/gbir-visitor.cpp
+    src/gbir/print-gbir.cpp
     src/gbir/inst/const.cpp
     src/gbir/inst/binop.cpp
     src/gbir/inst/call.cpp
@@ -52,6 +53,9 @@ set(SOURCES
     src/gbir/inst/scene.cpp
     src/gbir/inst/enters.cpp
     src/gbir/inst/terminator.cpp
+    src/gbir/inst/global.cpp
+    src/gbir-gen/gbir-gen.cpp
+    src/gbir-gen/factory.cpp
     src/llvm/codegen.cpp
 )
 
