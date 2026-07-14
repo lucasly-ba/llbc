@@ -1,5 +1,7 @@
 #include <gbir/basic-block.h>
 
+#include "gbir/inst/terminator.h"
+
 namespace gbir
 {
     GbirBasicBlock::GbirBasicBlock(
@@ -40,6 +42,11 @@ namespace gbir
     void GbirBasicBlock::add_instruction(std::unique_ptr<GbirInst> instruction)
     {
         instructions_.push_back(std::move(instruction));
+    }
+
+    bool GbirBasicBlock::has_terminator() const
+    {
+        return terminator_ != nullptr;
     }
 
     GbirInst& GbirBasicBlock::terminator_get() const

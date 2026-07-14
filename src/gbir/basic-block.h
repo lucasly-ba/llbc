@@ -1,5 +1,6 @@
 #pragma once
 #include <gbir/inst/inst.h>
+#include <gbir/inst/terminator.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -22,6 +23,7 @@ namespace gbir
         instructions_set(std::vector<std::unique_ptr<GbirInst>> instructions);
         void add_instruction(std::unique_ptr<GbirInst> instruction);
 
+        bool has_terminator() const;
         GbirInst& terminator_get() const;
         void terminator_set(std::unique_ptr<GbirInst> terminator);
 
