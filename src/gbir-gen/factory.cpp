@@ -1,4 +1,8 @@
 #include <gbir-gen/factory.h>
+#include <memory>
+
+#include "gbir/inst/inst.h"
+#include "gbir/top-level.h"
 
 namespace gbir
 {
@@ -9,17 +13,19 @@ namespace gbir
 
     std::unique_ptr<GbirFunction>
     make_GbirFunction(std::string name, std::vector<GbirValue> args,
-                      ast::Type return_type)
+                      ast::Type return_type,
+                      std::vector<std::unique_ptr<GbirBasicBlock>> blocks)
     {
         return std::make_unique<GbirFunction>(std::move(name), std::move(args),
-                                              return_type);
+                                              return_type, std::move(blocks));
     }
 
     std::unique_ptr<GbirGlobalVar>
-    make_GbirGlobalVar(std::string name, ast::Type type, int init_value)
+    make_GbirGlobalVar(std::string name, ast::Type type,
+                       std::unique_ptr<GbirInst> init)
     {
         return std::make_unique<GbirGlobalVar>(std::move(name), type,
-                                               init_value);
+                                               std::move(init));
     }
 
     std::unique_ptr<GbirPlayer> make_GbirPlayer(std::string name, int dollar,
@@ -36,14 +42,18 @@ namespace gbir
         return std::make_unique<GbirScene>(std::move(name), std::move(blocks));
     }
 
+    std::unique_ptr<GlobalAddrInst> make_GlobalAddrInst(std::string name,
+                                                        GbirValue result)
+    {
+        return std::make_unique<GlobalAddrInst>(name, result);
+    }
     std::unique_ptr<GbirBasicBlock>
     make_GbirBasicBlock(std::string label,
                         std::vector<std::unique_ptr<GbirInst>> instructions,
                         std::unique_ptr<GbirInst> terminator)
     {
-        return std::make_unique<GbirBasicBlock>(std::move(label),
-                                                std::move(instructions),
-                                                std::move(terminator));
+        return std::make_unique<GbirBasicBlock>(
+            std::move(label), std::move(instructions), std::move(terminator));
     }
 
     std::unique_ptr<GbirInst> make_ConstIntInst(int raw_value, GbirValue result)
@@ -136,9 +146,9 @@ namespace gbir
         return std::make_unique<ReturnInst>(value);
     }
 
-    std::unique_ptr<GbirInst> make_PhiInst(
-        GbirValue result,
-        std::vector<std::pair<GbirValue, GbirBasicBlock*>> incoming)
+    std::unique_ptr<GbirInst>
+    make_PhiInst(GbirValue result,
+                 std::vector<std::pair<GbirValue, GbirBasicBlock*>> incoming)
     {
         return std::make_unique<PhiInst>(result, std::move(incoming));
     }
