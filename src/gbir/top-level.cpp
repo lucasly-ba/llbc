@@ -191,4 +191,35 @@ namespace gbir
     {
         blocks_.push_back(std::move(block));
     }
+
+    std::optional<int> GbirScene::max_players_get() const
+    {
+        return max_players_;
+    }
+
+    void GbirScene::max_players_set(std::optional<int> max_players)
+    {
+        max_players_ = max_players;
+    }
+
+    const std::vector<std::unique_ptr<GbirBasicBlock>>&
+    GbirScene::precondition_get() const
+    {
+        return precondition_;
+    }
+
+    std::vector<std::unique_ptr<GbirBasicBlock>>& GbirScene::precondition_get()
+    {
+        return precondition_;
+    }
+
+    std::optional<GbirValue> GbirScene::precondition_result_get() const
+    {
+        return precondition_result_;
+    }
+
+    void GbirScene::precondition_result_set(GbirValue result)
+    {
+        precondition_result_ = result;
+    }
 } // namespace gbir

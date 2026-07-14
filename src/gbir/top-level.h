@@ -5,6 +5,7 @@
 #include <gbir/value.h>
 #include <gbir/visitor.h>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -105,8 +106,20 @@ namespace gbir
         std::vector<std::unique_ptr<GbirBasicBlock>>& blocks_get();
         void add_block(std::unique_ptr<GbirBasicBlock> block);
 
+        std::optional<int> max_players_get() const;
+        void max_players_set(std::optional<int> max_players);
+
+        const std::vector<std::unique_ptr<GbirBasicBlock>>&
+        precondition_get() const;
+        std::vector<std::unique_ptr<GbirBasicBlock>>& precondition_get();
+        std::optional<GbirValue> precondition_result_get() const;
+        void precondition_result_set(GbirValue result);
+
     private:
         std::string name_;
         std::vector<std::unique_ptr<GbirBasicBlock>> blocks_;
+        std::optional<int> max_players_;
+        std::vector<std::unique_ptr<GbirBasicBlock>> precondition_;
+        std::optional<GbirValue> precondition_result_;
     };
 } // namespace gbir
