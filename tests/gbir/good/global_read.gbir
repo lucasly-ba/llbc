@@ -1,0 +1,25 @@
+sil_player @p { dollars 100, chance 50, streak 0 }
+
+sil_global @base : $int = {
+  %0 = const_int 100 : $int
+}
+
+sil @bonus(%0 : $int) -> $int {
+bb0:
+  %1 = alloca $int
+  store %0 to %1 : $int
+  %2 = load %1 : $int
+  %3 = global_addr @base : $int
+  %4 = load %3 : $int
+  %5 = binop add %2, %4 : $int
+  return %5 : $int
+}
+
+sil_scene @main {
+bb0:
+  %0 = alloca $int
+  %1 = const_int 5 : $int
+  %2 = call @bonus(%1) : $int
+  store %2 to %0 : $int
+}
+

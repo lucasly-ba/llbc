@@ -1,0 +1,13 @@
+player p { dollars: 100$, chance: 50%, streak: 0x }
+
+var base: int = 100;
+
+fn bonus(x: int) ->int
+{
+	return x + base;
+}
+
+scene main
+{
+	var r = bonus(5);
+}

@@ -239,14 +239,22 @@ namespace gbir
     void GbirGen::visit(IdentExp& e)
     {
         auto def = dynamic_cast<VarDec*>(e.def_get());
-        GbirValue result(next_value_id_++, def->type_get().value());
         if (auto value = map_var_.find(def); value != map_var_.end())
+        {
+            GbirValue result(next_value_id_++, def->type_get().value());
             current_block_->add_instruction(
                 make_LoadInst(value->second, result));
+            current_value_ = result;
+        }
         else
+        {
+            GbirValue addr(next_value_id_++, def->type_get().value());
             current_block_->add_instruction(
-                make_GlobalAddrInst(def->name_get(), result));
-        current_value_ = result;
+                make_GlobalAddrInst(def->name_get(), addr));
+            GbirValue result(next_value_id_++, def->type_get().value());
+            current_block_->add_instruction(make_LoadInst(addr, result));
+            current_value_ = result;
+        }
     }
 
     void GbirGen::visit(AssignStmt& e)
