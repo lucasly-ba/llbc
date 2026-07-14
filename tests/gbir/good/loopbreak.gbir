@@ -1,15 +1,15 @@
 sil_player @p { dollars 100, chance 50, streak 0 }
 
-sil @count(%1 : $int) -> $int {
+sil @count(%0 : $int) -> $int {
 bb0:
-  %2 = alloca $int
-  store %1 to %2 : $int
+  %1 = alloca $int
+  store %0 to %1 : $int
   br bb1
 bb1:
-  %3 = load %2 : $int
-  %4 = const_int 10 : $int
-  %5 = binop gt %3, %4 : $bool
-  cond_br %5, bb3, bb4
+  %2 = load %1 : $int
+  %3 = const_int 10 : $int
+  %4 = binop gt %2, %3 : $bool
+  cond_br %4, bb3, bb4
 bb3:
   br bb2
 bb6:
@@ -17,21 +17,21 @@ bb6:
 bb4:
   br bb5
 bb5:
-  %6 = load %2 : $int
-  %7 = const_int 1 : $int
-  %8 = binop add %6, %7 : $int
-  store %8 to %2 : $int
+  %5 = load %1 : $int
+  %6 = const_int 1 : $int
+  %7 = binop add %5, %6 : $int
+  store %7 to %1 : $int
   br bb1
 bb2:
-  %9 = load %2 : $int
-  return %9 : $int
+  %8 = load %1 : $int
+  return %8 : $int
 }
 
 sil_scene @main {
 bb0:
-  %10 = alloca $int
-  %11 = const_int 0 : $int
-  %12 = call @count(%11) : $int
-  store %12 to %10 : $int
+  %0 = alloca $int
+  %1 = const_int 0 : $int
+  %2 = call @count(%1) : $int
+  store %2 to %0 : $int
 }
 

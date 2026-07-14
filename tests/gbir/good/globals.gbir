@@ -1,15 +1,15 @@
 sil_player @p { dollars 100, chance 50, streak 0 }
 
 sil_global @gi : $int = {
-  %1 = const_int 42 : $int
+  %0 = const_int 42 : $int
 }
 
 sil_global @gb : $bool = {
-  %2 = const_bool true : $bool
+  %0 = const_bool true : $bool
 }
 
 sil_global @gs : $string = {
-  %3 = const_string "hi" : $string
+  %0 = const_string "hi" : $string
 }
 
 sil_scene @main {

@@ -1,27 +1,27 @@
 sil_player @p { dollars 100, chance 50, streak 0 }
 
-sil @sign(%1 : $int) -> $int {
+sil @sign(%0 : $int) -> $int {
 bb0:
-  %2 = alloca $int
-  store %1 to %2 : $int
-  %3 = load %2 : $int
-  %4 = const_int 0 : $int
-  %5 = binop gt %3, %4 : $bool
-  cond_br %5, bb1, bb2
+  %1 = alloca $int
+  store %0 to %1 : $int
+  %2 = load %1 : $int
+  %3 = const_int 0 : $int
+  %4 = binop gt %2, %3 : $bool
+  cond_br %4, bb1, bb2
 bb1:
-  %6 = const_int 1 : $int
-  return %6 : $int
+  %5 = const_int 1 : $int
+  return %5 : $int
 bb2:
-  %7 = const_int 0 : $int
-  return %7 : $int
+  %6 = const_int 0 : $int
+  return %6 : $int
 bb3:
 }
 
 sil_scene @main {
 bb0:
-  %8 = alloca $int
-  %9 = const_int 5 : $int
-  %10 = call @sign(%9) : $int
-  store %10 to %8 : $int
+  %0 = alloca $int
+  %1 = const_int 5 : $int
+  %2 = call @sign(%1) : $int
+  store %2 to %0 : $int
 }
 

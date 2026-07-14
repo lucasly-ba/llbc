@@ -26,6 +26,7 @@ namespace gbir
     {
         if (e.is_top_level_get())
         {
+            next_value_id_ = 0;
             auto scratch = make_GbirBasicBlock("global_init", {}, nullptr);
             auto* saved_block = current_block_;
             current_block_ = scratch.get();
@@ -52,6 +53,9 @@ namespace gbir
 
     void GbirGen::visit(FuncDec& e)
     {
+        next_value_id_ = 0;
+        map_var_.clear();
+
         std::vector<GbirValue> args;
         for (auto& arg : e.args_get())
             args.push_back({ next_value_id_++, arg->type_get().value() });
