@@ -151,6 +151,7 @@ namespace ast
         void args_set(std::vector<exp_ptr> args);
 
         const Dec* def_get() const;
+        Dec* def_get();
         void def_set(Dec* def);
 
     private:
@@ -170,6 +171,7 @@ namespace ast
         void name_set(std::string name);
 
         const Dec* def_get() const;
+        Dec* def_get();
         void def_set(Dec* def);
 
     private:

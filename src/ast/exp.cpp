@@ -235,6 +235,11 @@ namespace ast
         return def_;
     }
 
+    Dec* CallExp::def_get()
+    {
+        return def_;
+    }
+
     void CallExp::def_set(Dec* def)
     {
         def_ = def;
@@ -261,6 +266,11 @@ namespace ast
     }
 
     const Dec* IdentExp::def_get() const
+    {
+        return def_;
+    }
+
+    Dec* IdentExp::def_get()
     {
         return def_;
     }
