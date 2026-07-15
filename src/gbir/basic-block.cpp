@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <gbir/basic-block.h>
 
 namespace gbir
@@ -74,6 +75,11 @@ namespace gbir
         predecessors_.push_back(predecessor);
     }
 
+    void GbirBasicBlock::remove_predecessor(GbirBasicBlock* predecessor)
+    {
+        std::erase(predecessors_, predecessor);
+    }
+
     const std::vector<GbirBasicBlock*> GbirBasicBlock::successors_get() const
     {
         return successors_;
@@ -94,6 +100,11 @@ namespace gbir
         successors_.push_back(successor);
     }
 
+    void GbirBasicBlock::remove_successor(GbirBasicBlock* successor)
+    {
+        std::erase(successors_, successor);
+    }
+
     bool GbirBasicBlock::has_predecessor()
     {
         return !predecessors_.empty();
@@ -101,7 +112,19 @@ namespace gbir
 
     bool GbirBasicBlock::has_successor()
     {
-        return !predecessors_.empty();
+        return !successors_.empty();
+    }
+
+    void GbirBasicBlock::delete_edges()
+    {
+        for (auto pred : predecessors_)
+            pred->remove_successor(this);
+
+        for (auto succ : successors_)
+            succ->remove_predecessor(this);
+
+        predecessors_.clear();
+        successors_.clear();
     }
 
 } // namespace gbir
