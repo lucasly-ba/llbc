@@ -47,13 +47,9 @@ namespace gbir
     {
         return std::make_unique<GlobalAddrInst>(name, result);
     }
-    std::unique_ptr<GbirBasicBlock>
-    make_GbirBasicBlock(std::string label,
-                        std::vector<std::unique_ptr<GbirInst>> instructions,
-                        std::unique_ptr<GbirInst> terminator)
+    std::unique_ptr<GbirBasicBlock> make_GbirBasicBlock(std::string label)
     {
-        return std::make_unique<GbirBasicBlock>(
-            std::move(label), std::move(instructions), std::move(terminator));
+        return std::make_unique<GbirBasicBlock>(std::move(label));
     }
 
     std::unique_ptr<GbirInst> make_ConstIntInst(int raw_value, GbirValue result)

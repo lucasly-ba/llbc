@@ -27,7 +27,7 @@ namespace gbir
         if (e.is_top_level_get())
         {
             next_value_id_ = 0;
-            auto scratch = make_GbirBasicBlock("global_init", {}, nullptr);
+            auto scratch = make_GbirBasicBlock("global_init");
             auto* saved_block = current_block_;
             current_block_ = scratch.get();
             e.init_get()->accept(*this);
@@ -63,8 +63,8 @@ namespace gbir
         auto func = make_GbirFunction(e.name_get(), args, e.type_get(), {});
         current_blocks_ = &func->blocks_get();
 
-        auto entry = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
+        auto entry =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
         current_block_ = entry.get();
         current_blocks_->push_back(std::move(entry));
 
@@ -105,7 +105,7 @@ namespace gbir
         if (auto precond = e.precondition_get())
         {
             current_blocks_ = &scene->precondition_get();
-            auto pre = make_GbirBasicBlock("pre0", {}, nullptr);
+            auto pre = make_GbirBasicBlock("pre0");
             current_block_ = pre.get();
             current_blocks_->push_back(std::move(pre));
             precond->accept(*this);
@@ -113,8 +113,8 @@ namespace gbir
         }
 
         current_blocks_ = &scene->blocks_get();
-        auto entry = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
+        auto entry =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
         current_block_ = entry.get();
         current_blocks_->push_back(std::move(entry));
 
@@ -284,16 +284,19 @@ namespace gbir
         e.condition_get().accept(*this);
         auto cond = current_value_;
 
-        auto bb_then = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
-        auto bb_else = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
-        auto bb_merge = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
+        auto bb_then =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
+        auto bb_else =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
+        auto bb_merge =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
 
         auto then_ptr = bb_then.get();
         auto else_ptr = bb_else.get();
         auto merge_ptr = bb_merge.get();
+
+        add_edge(current_block_, then_ptr);
+        add_edge(current_block_, else_ptr);
 
         current_block_->terminator_set(
             std::make_unique<CondBranchInst>(cond, then_ptr, else_ptr));
@@ -303,27 +306,34 @@ namespace gbir
         for (auto& stmt : e.then_branch_get())
             stmt->accept(*this);
         if (!current_block_->has_terminator())
+        {
+            add_edge(current_block_, merge_ptr);
             current_block_->terminator_set(
                 std::make_unique<BranchInst>(merge_ptr));
+        }
         current_blocks_->push_back(std::move(bb_else));
         current_block_ = else_ptr;
         for (auto& stmt : e.else_branch_get())
             stmt->accept(*this);
         if (!current_block_->has_terminator())
+        {
+            add_edge(current_block_, merge_ptr);
             current_block_->terminator_set(
                 std::make_unique<BranchInst>(merge_ptr));
+        }
         current_blocks_->push_back(std::move(bb_merge));
         current_block_ = merge_ptr;
     }
 
     void GbirGen::visit(LoopStmt& e)
     {
-        auto bb_loop = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
-        auto bb_after = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
+        auto bb_loop =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
+        auto bb_after =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
         auto loop_ptr = bb_loop.get();
         auto after_ptr = bb_after.get();
+        add_edge(current_block_, loop_ptr);
         current_block_->terminator_set(std::make_unique<BranchInst>(loop_ptr));
 
         current_blocks_->push_back(std::move(bb_loop));
@@ -333,8 +343,11 @@ namespace gbir
             stmt->accept(*this);
         loop_exit_stack_.pop_back();
         if (!current_block_->has_terminator())
+        {
+            add_edge(current_block_, loop_ptr);
             current_block_->terminator_set(
                 std::make_unique<BranchInst>(loop_ptr));
+        }
 
         current_blocks_->push_back(std::move(bb_after));
         current_block_ = after_ptr;
@@ -343,11 +356,12 @@ namespace gbir
     void GbirGen::visit(BreakStmt& e)
     {
         (void)e;
+        add_edge(current_block_, loop_exit_stack_.back());
         current_block_->terminator_set(
             std::make_unique<BranchInst>(loop_exit_stack_.back()));
 
-        auto bb_dead = make_GbirBasicBlock(
-            "bb" + std::to_string(next_bb_label_id_++), {}, nullptr);
+        auto bb_dead =
+            make_GbirBasicBlock("bb" + std::to_string(next_bb_label_id_++));
         auto dead_ptr = bb_dead.get();
         current_blocks_->push_back(std::move(bb_dead));
         current_block_ = dead_ptr;
@@ -379,6 +393,12 @@ namespace gbir
     {
         auto inst = make_StartInst(e.scene_name_get());
         current_block_->add_instruction(std::move(inst));
+    }
+
+    void GbirGen::add_edge(GbirBasicBlock* from, GbirBasicBlock* to)
+    {
+        from->add_successor(to);
+        to->add_predecessor(from);
     }
 
 } // namespace gbir

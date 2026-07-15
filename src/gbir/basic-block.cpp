@@ -1,15 +1,9 @@
 #include <gbir/basic-block.h>
 
-#include "gbir/inst/terminator.h"
-
 namespace gbir
 {
-    GbirBasicBlock::GbirBasicBlock(
-        std::string label, std::vector<std::unique_ptr<GbirInst>> instructions,
-        std::unique_ptr<GbirInst> terminator)
+    GbirBasicBlock::GbirBasicBlock(std::string label)
         : label_(std::move(label))
-        , instructions_(std::move(instructions))
-        , terminator_(std::move(terminator))
     {}
 
     const std::string& GbirBasicBlock::label_get() const
@@ -58,4 +52,56 @@ namespace gbir
     {
         terminator_ = std::move(terminator);
     }
+
+    const std::vector<GbirBasicBlock*> GbirBasicBlock::predecessors_get() const
+    {
+        return predecessors_;
+    }
+
+    std::vector<GbirBasicBlock*> GbirBasicBlock::predecessors_get()
+    {
+        return predecessors_;
+    }
+
+    void
+    GbirBasicBlock::predecessors_set(std::vector<GbirBasicBlock*> predecessors)
+    {
+        predecessors_ = predecessors;
+    }
+
+    void GbirBasicBlock::add_predecessor(GbirBasicBlock* predecessor)
+    {
+        predecessors_.push_back(predecessor);
+    }
+
+    const std::vector<GbirBasicBlock*> GbirBasicBlock::successors_get() const
+    {
+        return successors_;
+    }
+
+    std::vector<GbirBasicBlock*> GbirBasicBlock::successors_get()
+    {
+        return successors_;
+    }
+
+    void GbirBasicBlock::successors_set(std::vector<GbirBasicBlock*> successors)
+    {
+        successors_ = successors;
+    }
+
+    void GbirBasicBlock::add_successor(GbirBasicBlock* successor)
+    {
+        successors_.push_back(successor);
+    }
+
+    bool GbirBasicBlock::has_predecessor()
+    {
+        return !predecessors_.empty();
+    }
+
+    bool GbirBasicBlock::has_successor()
+    {
+        return !predecessors_.empty();
+    }
+
 } // namespace gbir

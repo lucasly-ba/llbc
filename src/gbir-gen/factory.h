@@ -29,10 +29,7 @@ namespace gbir
     make_GbirScene(std::string name,
                    std::vector<std::unique_ptr<GbirBasicBlock>> blocks);
 
-    std::unique_ptr<GbirBasicBlock>
-    make_GbirBasicBlock(std::string label,
-                        std::vector<std::unique_ptr<GbirInst>> instructions,
-                        std::unique_ptr<GbirInst> terminator);
+    std::unique_ptr<GbirBasicBlock> make_GbirBasicBlock(std::string label);
 
     std::unique_ptr<GlobalAddrInst> make_GlobalAddrInst(std::string name,
                                                         GbirValue result);

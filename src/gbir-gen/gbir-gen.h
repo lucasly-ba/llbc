@@ -6,8 +6,6 @@
 #include <memory>
 #include <unordered_map>
 
-#include "gbir/top-level.h"
-
 namespace gbir
 {
     using namespace ast;
@@ -44,6 +42,8 @@ namespace gbir
         void visit(ReturnStmt& e) override;
         void visit(EntersStmt& e) override;
         void visit(StartStmt& e) override;
+
+        void add_edge(GbirBasicBlock* from, GbirBasicBlock* to);
 
     private:
         std::unordered_map<VarDec*, GbirValue> map_var_;

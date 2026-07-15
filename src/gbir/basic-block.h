@@ -10,9 +10,7 @@ namespace gbir
     class GbirBasicBlock
     {
     public:
-        GbirBasicBlock(std::string label,
-                       std::vector<std::unique_ptr<GbirInst>> instructions,
-                       std::unique_ptr<GbirInst> terminator);
+        GbirBasicBlock(std::string label);
 
         const std::string& label_get() const;
         void label_set(std::string label);
@@ -27,7 +25,21 @@ namespace gbir
         GbirInst& terminator_get() const;
         void terminator_set(std::unique_ptr<GbirInst> terminator);
 
+        const std::vector<GbirBasicBlock*> predecessors_get() const;
+        std::vector<GbirBasicBlock*> predecessors_get();
+        void predecessors_set(std::vector<GbirBasicBlock*> predecessors);
+        void add_predecessor(GbirBasicBlock* predecessor);
+        bool has_predecessor();
+
+        const std::vector<GbirBasicBlock*> successors_get() const;
+        std::vector<GbirBasicBlock*> successors_get();
+        void successors_set(std::vector<GbirBasicBlock*> successors);
+        void add_successor(GbirBasicBlock* successor);
+        bool has_successor();
+
     private:
+        std::vector<GbirBasicBlock*> predecessors_;
+        std::vector<GbirBasicBlock*> successors_;
         std::string label_;
         std::vector<std::unique_ptr<GbirInst>> instructions_;
         std::unique_ptr<GbirInst> terminator_;
