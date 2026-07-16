@@ -38,11 +38,15 @@ namespace gbir
         const std::vector<std::unique_ptr<GbirBasicBlock>>& blocks_get() const;
         std::vector<std::unique_ptr<GbirBasicBlock>>& blocks_get();
 
+        int next_value_id_get() const;
+        void next_value_id_set(int next_value_id);
+
     private:
         std::string name_;
         std::vector<GbirValue> args_;
         ast::Type return_type_;
         std::vector<std::unique_ptr<GbirBasicBlock>> blocks_;
+        int next_value_id_ = 0;
     };
 
     class GbirGlobalVar : public GbirTopLevel
@@ -106,6 +110,9 @@ namespace gbir
         std::vector<std::unique_ptr<GbirBasicBlock>>& blocks_get();
         void add_block(std::unique_ptr<GbirBasicBlock> block);
 
+        int next_value_id_get() const;
+        void next_value_id_set(int next_value_id);
+
         std::optional<int> max_players_get() const;
         void max_players_set(std::optional<int> max_players);
 
@@ -121,5 +128,6 @@ namespace gbir
         std::optional<int> max_players_;
         std::vector<std::unique_ptr<GbirBasicBlock>> precondition_;
         std::optional<GbirValue> precondition_result_;
+        int next_value_id_ = 0;
     };
 } // namespace gbir

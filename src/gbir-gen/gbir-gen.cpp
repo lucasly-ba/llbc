@@ -89,6 +89,7 @@ namespace gbir
         }
 
         next_bb_label_id_ = 0;
+        func->next_value_id_set(next_value_id_);
         module_.add_top_level(std::move(func));
         current_blocks_ = nullptr;
         current_block_ = nullptr;
@@ -129,6 +130,7 @@ namespace gbir
         }
 
         next_bb_label_id_ = 0;
+        scene->next_value_id_set(next_value_id_);
         module_.add_top_level(std::move(scene));
         current_blocks_ = nullptr;
         current_block_ = nullptr;

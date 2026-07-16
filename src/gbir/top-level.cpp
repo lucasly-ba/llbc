@@ -61,6 +61,16 @@ namespace gbir
         return blocks_;
     }
 
+    int GbirFunction::next_value_id_get() const
+    {
+        return next_value_id_;
+    }
+
+    void GbirFunction::next_value_id_set(int next_value_id)
+    {
+        next_value_id_ = next_value_id;
+    }
+
     GbirGlobalVar::GbirGlobalVar(std::string name, ast::Type type,
                                  std::unique_ptr<GbirInst> init)
         : name_(std::move(name))
@@ -190,6 +200,16 @@ namespace gbir
     void GbirScene::add_block(std::unique_ptr<GbirBasicBlock> block)
     {
         blocks_.push_back(std::move(block));
+    }
+
+    int GbirScene::next_value_id_get() const
+    {
+        return next_value_id_;
+    }
+
+    void GbirScene::next_value_id_set(int next_value_id)
+    {
+        next_value_id_ = next_value_id;
     }
 
     std::optional<int> GbirScene::max_players_get() const
